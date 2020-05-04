@@ -29,19 +29,22 @@ form {
 }
 
 .startPage-inputbox input {
-  height: 20px;
+  height: 25px;
   width: 120px;
-}
-
-@media screen and (min-width: 720px) {
-  .startPage-inputbox input {
-    height: 25px;
-    width: 160px;
-    font-size: 18px;
-  }
+  font-size: 18px;
 }
 
 .characters {
   display: flex;
   flex-direction: row;
+}
+
+@media screen and (min-width: 720px) {
+  #name {
+    border: none;
+    border-bottom: 6px dashed black;
+    width: 50px;
+    background: none;
+    letter-spacing: 2px;
+  }
 }

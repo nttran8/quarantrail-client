@@ -18,12 +18,12 @@
 
 .rotateRight {
   transform: rotate(35deg);
-  transition: .25s;
+  transition: 0.25s;
 }
 
 .rotateLeft {
   transform: rotate(-35deg);
-  transition: .25s;
+  transition: 0.25s;
 }
 
 .hands {
@@ -35,14 +35,6 @@
   left: 35%;
 }
 
-.wash-button, .ready-button {
-  position: absolute;
-  bottom: 30%;
-  left: 35%;
-  width: 30vw;
-  height: 30px;
-}
-
 @media screen and (min-width: 720px) {
   #left-hand {
     background-image: url("../../Images/left-hand.svg");
@@ -52,7 +44,7 @@
     background-position: bottom center;
     background-size: cover;
   }
-  
+
   #right-hand {
     background-image: url("../../Images/right-hand.svg");
     width: 75px;
@@ -67,7 +59,8 @@
     left: 45%;
   }
 
-  .wash-button, .ready-button {
+  .wash-button,
+  .ready-button {
     bottom: 20%;
     left: 45%;
     width: 150px;

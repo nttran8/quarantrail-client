@@ -15,9 +15,9 @@ export default class EndPage extends Component {
       score: this.context.day
     };
     this.context.updateRenderCurve(false);
-    LeaderboardService.postScore(post)
+    LeaderboardService.postScore(post);
     this.props.renderRestart();
-    return <Redirect to="/"/>;
+    return <Redirect to="/" />;
   };
   render() {
     let day;
@@ -26,12 +26,16 @@ export default class EndPage extends Component {
     } else day = "days";
     return (
       <section className="EndPage-section">
-        <div class="display-container">
-          <div class="display">
+        <div className="display-container">
+          <div className="display">
             <h1>{this.context.dead}</h1>
-            <h2>you have survived: {this.context.day} days</h2>
+            <h2>
+              you have survived: {this.context.day} {day}
+            </h2>
             <Link to="/">
-              <button className='display-button' onClick={this.handleRestart}>Try again</button>
+              <button className="display-button" onClick={this.handleRestart}>
+                Try again
+              </button>
             </Link>
             <Music song={Song} />
           </div>

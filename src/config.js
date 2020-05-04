@@ -1,3 +1,3 @@
 export default {
-  API_ENDPOINT: "https://infinite-mesa-74719.herokuapp.com/api"
+  API_ENDPOINT: "https://quarantrail.herokuapp.com/api"
 };

@@ -7,7 +7,7 @@
 - Robert Perez
 - Jaye Laguardia
 
-## Live Link: [QuaranTrail](https://quarantrail.now.sh/)
+## Live Link: [QuaranTrail](https://quarantrail.web.app/)
 
 ## API Repo Link: [Api Repo](https://github.com/nttran8/quarantrail-server)
 

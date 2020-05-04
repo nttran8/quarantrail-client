@@ -50,7 +50,7 @@ export default class LeaderBoard extends Component {
       scores.push(leaderboard[i]);
     }
     return scores.map((score, i) => (
-      <li className="leaderboard-list-item">
+      <li key={i + scores} className="leaderboard-list-item">
         {/* <span className="leaderboard-place">1</span> */}
         <span className="leaderboard-name">
           #{i + 4} {score.name}{" "}

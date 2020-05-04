@@ -20,7 +20,7 @@ export default class StartPage extends Component {
   };
 
   updateName = event => {
-    beep.play()
+    beep.play();
     this.context.setName(event.currentTarget.value);
   };
 
@@ -37,7 +37,7 @@ export default class StartPage extends Component {
               value={this.context.name}
               onChange={this.updateName}
               required
-              maxlength="3"
+              maxLength="3"
             ></input>
           </div>
           <button className="introButton">Submit</button>
