@@ -9,7 +9,7 @@
 
 ## Live Link: [QuaranTrail](https://quarantrail.now.sh/)
 
-## API Repo Link: [Api Repo](https://github.com/thinkful-ei-jaguar/Quarantrail-server)
+## API Repo Link: [Api Repo](https://github.com/nttran8/quarantrail-server)
 
 ### About
 
