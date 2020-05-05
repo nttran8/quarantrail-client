@@ -77,7 +77,7 @@ export default class BestGameEver extends Component {
 
     return (
       <div className="minigame-end-screen">
-        <div className="display-box">
+        <div className="popupScreen">
           <h2>All CLean!</h2>
           <p>you got a score of {count}</p>
           <br />
@@ -90,7 +90,11 @@ export default class BestGameEver extends Component {
               }
             }}
           >
-            <button disabled={disabled} onClick={this.updateHealth}>
+            <button
+              className="popupButton"
+              disabled={disabled}
+              onClick={this.updateHealth}
+            >
               Done
             </button>
           </Link>
@@ -111,7 +115,7 @@ export default class BestGameEver extends Component {
           <div id="myBar" className="washHandTimer"></div>
         </div>
         {!ready && (
-          <button className="readyButton" onClick={this.ready}>
+          <button className="popupButton washHandButton" onClick={this.ready}>
             Ready
           </button>
         )}

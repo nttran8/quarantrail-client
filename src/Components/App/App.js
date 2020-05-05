@@ -108,8 +108,12 @@ class App extends Component {
             <Route exact path={"/feedTreats"} component={FeedTreatGame} />
             <Route exact path={"/runner"} component={Runner} />
           </Switch>
-          {this.context.leader && <LeaderBoard />}
-          {this.context.instructions && <Instruction />}
+          {this.context.leader && (
+            <LeaderBoard toggleLeaderBoard={this.context.toggleLeader} />
+          )}
+          {this.context.instructions && (
+            <Instruction toggleInstruct={this.context.toggleInstruct} />
+          )}
           <Footer
             toggleLeaderBoard={this.context.toggleLeader}
             toggleInstruction={this.context.toggleInstruct}

@@ -25,19 +25,27 @@ export default class LeaderBoard extends Component {
     }
     return (
       <>
-        <div className="leaderboard-second">
-          <span className="leaderboard-name">#2 {topThree[1].name} </span>
-          <span className="leaderboard-score">{topThree[1].score} days</span>
-        </div>
         <div className="leaderboard-first">
           <img src={Crown} alt="crown" />
           <br />
           <span className="leaderboard-name">#1 {topThree[0].name} </span>
-          <span className="leaderboard-score">{topThree[0].score} days</span>
+          <span className="leaderboard-score top-score">
+            {topThree[0].score} days
+          </span>
         </div>
-        <div className="leaderboard-third">
-          <span className="leaderboard-name">#3 {topThree[2].name} </span>
-          <span className="leaderboard-score">{topThree[2].score} days</span>
+        <div className="leaderboard-second-third">
+          <div>
+            <span className="leaderboard-name">#2 {topThree[1].name} </span>
+            <span className="leaderboard-score top-score">
+              {topThree[1].score} days
+            </span>
+          </div>
+          <div>
+            <span className="leaderboard-name">#3 {topThree[2].name} </span>
+            <span className="leaderboard-score top-score">
+              {topThree[2].score} days
+            </span>
+          </div>
         </div>
       </>
     );
@@ -63,7 +71,10 @@ export default class LeaderBoard extends Component {
   render() {
     const { loaded } = this.state;
     return (
-      <section className="leaderboard-section">
+      <section
+        className="leaderboard-section"
+        onClick={this.props.toggleLeaderBoard}
+      >
         <div className="leaderboard">
           <h2>Leaderboard</h2>
           <div className="leaderboard-top-three">

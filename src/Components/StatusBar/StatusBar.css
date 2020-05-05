@@ -43,11 +43,13 @@
 
 #corona {
   padding-left: 5px;
-  background-color: rgb(236, 228, 160);
 }
 
 #boredom {
   padding-left: 5px;
+}
+
+.showBar {
   background-color: rgb(209, 192, 41);
 }
 

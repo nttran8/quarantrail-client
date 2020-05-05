@@ -5,6 +5,15 @@ import "./StatusBar.css";
 
 export default class StatusBar extends Component {
   static contextType = PersonContext;
+
+  showBar = type => {
+    if (this.context.starter[type] === 0) {
+      return;
+    } else {
+      return "showBar";
+    }
+  };
+
   render() {
     const remCorona = 100 - this.context.starter.health;
     const remBoredom = 100 - this.context.starter.boredom;
@@ -15,6 +24,7 @@ export default class StatusBar extends Component {
           <div className="bar">
             <div
               id="corona"
+              className={this.showBar("health")}
               style={{ width: this.context.starter.health + "%" }}
             >
               <p>{this.context.starter.health}%</p>
@@ -27,6 +37,7 @@ export default class StatusBar extends Component {
           <div className="bar">
             <div
               id="boredom"
+              className={this.showBar("boredom")}
               style={{ width: this.context.starter.boredom + "%" }}
             >
               <p>{this.context.starter.boredom}%</p>
