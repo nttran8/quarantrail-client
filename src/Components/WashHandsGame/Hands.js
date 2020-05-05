@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import "./WashGame.css";
 
 export default class WashGame extends Component {
   state = {
-    // count: 0,
     wash: false
   };
 

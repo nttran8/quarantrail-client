@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import WashGame from "../../Components/WashGame/WashGame";
+import WashGame from "./Hands";
 import PersonContext from "../../Context/PersonContext";
-import Music from "../../Components/Music/Music";
+import Music from "../Music/Music";
 import Song from "../../Sound/washHands.mp3";
-import "./minigame.css";
+import "./WashHandsGame.css";
 
 export default class BestGameEver extends Component {
   static contextType = PersonContext;

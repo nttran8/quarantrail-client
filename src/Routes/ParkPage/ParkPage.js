@@ -6,10 +6,10 @@ import Day from "../../Components/Day/Day";
 import Character from "../../Components/Character/Character";
 import Stock from "../../Components/Stock/Stock";
 import Music from "../../Components/Music/Music";
-import Curveball from "../../Components/Curveball.js/Curveball";
+import Curveball from "../../Components/Curveball/Curveball";
 import Song from "../../Sound/morningmagic.mp3";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PetActivities from "../../Components/PetActivities/PetActivities";
+import ParkActivities from "../../Components/ParkActivities/ParkActivities";
 import Feedback from "../../Components/Feedback/Feedback";
 import "./ParkPage.css";
 
@@ -82,7 +82,7 @@ export default class ParkPage extends Component {
         </button>
         {this.context.renderCurve && <Curveball />}
         {this.context.renderFeedback && <Feedback />}
-        <PetActivities {...this.props} />
+        <ParkActivities {...this.props} />
         <Music song={Song} />
       </section>
     );

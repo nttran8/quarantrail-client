@@ -7,7 +7,7 @@ import Stock from "../../Components/Stock/Stock";
 import Music from "../../Components/Music/Music";
 import Store from "../../Components/Store/Store";
 import Character from "../../Components/Character/Character";
-import Curveball from "../../Components/Curveball.js/Curveball";
+import Curveball from "../../Components/Curveball/Curveball";
 import Song from "../../Sound/feelsgood.mp3";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./MarketPage.css";
@@ -98,7 +98,7 @@ export default class MarketPage extends Component {
           </button>
         </div>
         <div className="store-section">
-          {shopping && <Store shopping={this.handleShop}/>}
+          {shopping && <Store shopping={this.handleShop} />}
         </div>
         <Music song={Song} />
       </section>

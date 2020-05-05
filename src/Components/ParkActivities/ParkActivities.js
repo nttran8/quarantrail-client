@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import PersonContext from "../../Context/PersonContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./PetActivities.css";
-//import { tsImportEqualsDeclaration } from "@babel/types";
+import "./ParkActivities.css";
 
-export default class PetActivities extends Component {
+export default class ParkActivities extends Component {
   static contextType = PersonContext;
 
   state = {
@@ -56,7 +55,7 @@ export default class PetActivities extends Component {
   };
 
   handleRunning = () => {
-    this.props.history.push("/runner");
+    this.props.history.push("/swerveExercise");
   };
 
   handleTreat = () => {

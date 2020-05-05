@@ -8,9 +8,9 @@ import { generatePipes } from "./Pipes";
 import Matter from "matter-js";
 import Constants from "./Constants";
 
-import "./SimpleGame.css";
+import "./VideoGame.css";
 
-export default class SimpleGame extends Component {
+export default class VideoGame extends Component {
   constructor(props) {
     super(props);
 
@@ -130,7 +130,6 @@ export default class SimpleGame extends Component {
       mpipe
     ]);
     Matter.Events.on(engine, "collisionStart", event => {
-      //var pairs = event.pairs;
       this.gameEngine.dispatch({ type: "game-over" });
     });
 
@@ -201,7 +200,6 @@ export default class SimpleGame extends Component {
   };
   onEvent = e => {
     if (e.type === "game-over") {
-      //Alert.alert("Game Over");
       this.setState({
         running: false
       });

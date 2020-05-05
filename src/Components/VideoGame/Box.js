@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import rockcat from "../../Images/Rocky.svg";
-import "./SimpleGame.css";
 
 export default class Box extends Component {
   render() {
@@ -17,7 +16,6 @@ export default class Box extends Component {
           top: y,
           width: width + 10,
           height: height
-          //backgroundColor:this.props.color
         }}
       >
         <img className="cat" src={rockcat} alt="cat"></img>

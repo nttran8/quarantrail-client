@@ -10,7 +10,7 @@ import StatusBar from "../../Components/StatusBar/StatusBar";
 import FirstDay from "../../Components/FirstDay/FirstDay";
 import Day from "../../Components/Day/Day";
 import gameService from "../../services/gameService";
-import Curveball from "../../Components/Curveball.js/Curveball";
+import Curveball from "../../Components/Curveball/Curveball";
 import Character from "../../Components/Character/Character";
 import Song from "../../Sound/8bitsurf.mp3";
 import Pet from "../../Components/Pet/Pet";

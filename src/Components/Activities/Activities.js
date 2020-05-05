@@ -23,7 +23,7 @@ export default class Activities extends Component {
   };
 
   doActivityStuff = (name, health, boredom) => {
-    let newBoredom =boredom;
+    let newBoredom = boredom;
     if (this.state.previousAct === name) {
       this.setState({
         previousCount: this.state.previousCount + 1
@@ -48,7 +48,7 @@ export default class Activities extends Component {
       id: this.context.starter.id,
       health: this.context.starter.health + health,
       boredom: this.context.starter.boredom + newBoredom,
-      toiletpaper: this.context.starter.toiletpaper ,
+      toiletpaper: this.context.starter.toiletpaper,
       food: this.context.starter.food
     };
     this.context.setPersonInfo(newData2);
@@ -72,7 +72,7 @@ export default class Activities extends Component {
   handleVideoGame = () => {
     this.doActivityStuff("videogame", 0, -10);
     this.context.turnTV(true);
-    this.props.history.push("/game");
+    this.props.history.push("/playVideogame");
     this.context.updateFeedback(true);
   };
 

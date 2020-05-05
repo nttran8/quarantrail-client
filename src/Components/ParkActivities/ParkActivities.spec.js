@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import BestGameEver from "./minigame";
+import ParkActivities from "./ParkActivities";
 
-it("minigame renders without crashing", () => {
+it("ParkActivities renders without crashing", () => {
   const div = document.createElement("div");
 
-  ReactDOM.render(<BestGameEver />, div);
+  ReactDOM.render(<ParkActivities />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
