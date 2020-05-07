@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import Stock from "../../Components/Stock/Stock";
 import Music from "../../Components/Music/Music";
 import Activities from "../../Components/Activities/Activities";
@@ -14,7 +13,6 @@ import Curveball from "../../Components/Curveball/Curveball";
 import Character from "../../Components/Character/Character";
 import Song from "../../Sound/8bitsurf.mp3";
 import Pet from "../../Components/Pet/Pet";
-//import TV from "../../Components/TV/TV";
 import Phone from "../../Components/Phone/Phone";
 import Feedback from "../../Components/Feedback/Feedback";
 export default class GamePage extends Component {
@@ -22,7 +20,6 @@ export default class GamePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lose: false,
       active: false
     };
   }
@@ -65,40 +62,8 @@ export default class GamePage extends Component {
     this.props.history.push("/park");
   };
 
-  checkIfYadied = () => {
-    const rand = Math.floor(Math.random() * 100) + 1;
-    if (this.context.day > 5 && rand < this.context.starter.health) {
-      this.context.setDeath(
-        `you caught the disease with a ${this.context.starter.health}% chance`
-      );
-      this.setState({ lose: true });
-    }
-    if (this.context.starter.health >= 100) {
-      this.context.setDeath("you caught the disease gg");
-      this.setState({ lose: true });
-    } else if (this.context.starter.boredom >= 100) {
-      this.context.setDeath("you literally died of boredom");
-      this.setState({ lose: true });
-    } else if (this.context.starter.food <= 0) {
-      this.context.setDeath(
-        "you ran out of food and are too scared to go out and get more"
-      );
-      this.setState({ lose: true });
-    } else if (this.context.starter.toiletpaper <= 0) {
-      this.context.setDeath(
-        "you ran out of toilet paper you have been stuck in the bathroom for days"
-      );
-      this.setState({ lose: true });
-    }
-  };
   render() {
-    this.checkIfYadied();
-
-    if (this.state.lose === true) {
-      this.setState({ lose: false });
-
-      return <Redirect to="/end" />;
-    }
+    this.context.checkIfGameOver();
     let disabled;
     if (this.context.renderCurve) {
       disabled = true;

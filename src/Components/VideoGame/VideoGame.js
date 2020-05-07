@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { GameEngine } from "react-game-engine";
-import Box from "./Box";
+import Cat from "./Cat";
 import Wall from "./Wall";
-import { MoveBox } from "./boxMove";
+import { CatMove } from "./CatMove";
 import { generatePipes } from "./Pipes";
 import Matter from "matter-js";
 import Constants from "./Constants";
-
+import Music from "../../Components/Music/Music";
+import Song from "../../Sound/morningmagic.mp3";
 import "./VideoGame.css";
 
 export default class VideoGame extends Component {
@@ -15,19 +16,27 @@ export default class VideoGame extends Component {
     super(props);
 
     this.state = {
-      running: true,
+      running: false,
+      done: false,
+      instruction: true,
       height: 0,
       width: 0
     };
     this.gameEngine = null;
     this.entities = this.setupWorld();
   }
+
+  ready = () => {
+    this.setState({ running: true, instruction: false });
+  };
+
   setupWorld = () => {
     let engine = Matter.Engine.create({ enableSleeping: false });
     let world = engine.world;
-    world.gravity.y = 0.6;
+    world.gravity.y = 0.5;
 
-    let box = Matter.Bodies.rectangle(
+    // Create dimensions of cat, floor, ceiling, and pipes
+    let cat = Matter.Bodies.rectangle(
       Constants.MAX_WIDTH / 4,
       Constants.MAX_HEIGHT / 2,
       50,
@@ -117,7 +126,7 @@ export default class VideoGame extends Component {
     );
 
     Matter.World.add(world, [
-      box,
+      cat,
       floor,
       ceiling,
       pipe1,
@@ -129,142 +138,134 @@ export default class VideoGame extends Component {
       kpipe,
       mpipe
     ]);
+
+    // Mark as gameover when collision occurs
     Matter.Events.on(engine, "collisionStart", event => {
       this.gameEngine.dispatch({ type: "game-over" });
     });
 
     return {
       physics: { engine: engine, world: world },
-      box: { body: box, size: [50, 50], color: "red", renderer: Box },
+      cat: { body: cat, size: [15, 20], color: "#998c94", renderer: Cat },
       floor: {
         body: floor,
         size: [Constants.MAX_WIDTH, 50],
-        color: "green",
+        color: "#998c94",
         renderer: Wall
       },
       ceiling: {
         body: ceiling,
         size: [Constants.MAX_WIDTH, 50],
-        color: "green",
+        color: "#998c94",
         renderer: Wall
       },
       pipe1: {
         body: pipe1,
         size: [Constants.PIPE_WIDTH, pipe1Height],
-        color: "green",
+        color: "#998c94",
         renderer: Wall
       },
       pipe2: {
         body: pipe2,
         size: [Constants.PIPE_WIDTH, pipe2Height],
-        color: "green",
+        color: "#998c94",
         renderer: Wall
       },
       pipe3: {
         body: pipe3,
         size: [Constants.PIPE_WIDTH, pipe3Height],
-        color: "green",
+        color: "#998c94",
         renderer: Wall
       },
       pipe4: {
         body: pipe4,
         size: [Constants.PIPE_WIDTH, pipe4Height],
-        color: "green",
+        color: "#998c94",
         renderer: Wall
       },
       npipe: {
         body: npipe,
         size: [Constants.PIPE_WIDTH, pipe5Height],
-        color: "green",
+        color: "#998c94",
         renderer: Wall
       },
       lpipe: {
         body: lpipe,
         size: [Constants.PIPE_WIDTH, pipe6Height],
-        color: "green",
+        color: "#998c94",
         renderer: Wall
       },
       kpipe: {
         body: kpipe,
         size: [Constants.PIPE_WIDTH, pipe7Height],
-        color: "green",
+        color: "#998c94",
         renderer: Wall
       },
       mpipe: {
         body: mpipe,
         size: [Constants.PIPE_WIDTH, pipe8Height],
-        color: "green",
+        color: "#998c94",
         renderer: Wall
       }
     };
   };
+
   onEvent = e => {
+    // Stop game if gameover
     if (e.type === "game-over") {
       this.setState({
-        running: false
+        running: false,
+        done: true
       });
     }
   };
 
-  reset = () => {
-    this.gameEngine.swap(this.setupWorld());
-    this.setState({
-      running: true
-    });
+  renderInstruction = () => {
+    return (
+      <div className="popupScreen">
+        <p>Click to jump and try to avoid the walls!</p>
+        <button className="popupButton" onClick={this.ready}>
+          Play
+        </button>
+      </div>
+    );
   };
+
   render() {
     return (
-      <div
-        style={{
-          flex: 1,
-          z: 1
-        }}
+      <section
         ref={inner => {
           this.inner = inner;
         }}
+        className="videoGame"
       >
-        <GameEngine
-          ref={ref => {
-            this.gameEngine = ref;
-          }}
-          style={{
-            width: Constants.MAX_WIDTH,
-            height: Constants.MAX_HEIGHT
-          }}
-          className="game"
-          systems={[MoveBox]}
-          onEvent={this.onEvent}
-          running={this.state.running}
-          entities={this.entities}
-        ></GameEngine>
-        {!this.state.running && (
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              flex: 1
+        {this.state.instruction && this.renderInstruction()}
+        {this.state.running && (
+          <GameEngine
+            ref={ref => {
+              this.gameEngine = ref;
             }}
-            onClick={this.reset}
-          >
-            <div className="middle2">
-              <p
-                style={{
-                  color: "red",
-                  fontSize: 50
-                }}
-              >
-                Game Over
-              </p>
-              <Link to="/">
-                <button>back home</button>
-              </Link>
-            </div>
+            style={{
+              width: Constants.MAX_WIDTH,
+              height: Constants.MAX_HEIGHT
+            }}
+            className="game"
+            systems={[CatMove]}
+            onEvent={this.onEvent}
+            running={this.state.running}
+            entities={this.entities}
+          ></GameEngine>
+        )}
+        {this.state.done && (
+          <div className="popupScreen">
+            <p>Game Over</p>
+            <Link to="/">
+              <button className="popupButton">Done</button>
+            </Link>
           </div>
         )}
-      </div>
+        <Music song={Song} />
+      </section>
     );
   }
 }

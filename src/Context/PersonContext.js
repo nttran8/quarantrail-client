@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 const PersonContext = React.createContext({
   starter: {},
@@ -9,7 +10,6 @@ const PersonContext = React.createContext({
   dailyActivities: 2,
   activityTracker: {},
   location: "home",
-  dead: "",
   curveball: false,
   renderCurve: false,
   feedTreat: false,
@@ -25,7 +25,6 @@ const PersonContext = React.createContext({
   updateBuy: () => {},
   updateCurve: () => {},
   updateRenderCurve: () => {},
-  setDeath: () => {},
   setName: () => {},
   setCharacter: () => {},
   setPersonInfo: () => {},
@@ -42,7 +41,8 @@ const PersonContext = React.createContext({
   setFeedTreat: () => {},
   setWash: () => {},
   clearActivites: () => {},
-  updateActivityTracker: () => {}
+  updateActivityTracker: () => {},
+  checkIfGameOver: () => {}
 });
 
 export default PersonContext;
@@ -57,7 +57,6 @@ export class PersonProvider extends Component {
     dailyActivities: 2,
     activityTracker: {},
     location: "home",
-    dead: "",
     curveball: false,
     renderCurve: false,
     feedTreat: false,
@@ -85,10 +84,6 @@ export class PersonProvider extends Component {
     this.setState({ buyOnce: bool });
   };
 
-  setDeath = death => {
-    this.setState({ dead: death });
-  };
-
   setName = user => {
     this.setState({ name: user });
   };
@@ -98,11 +93,11 @@ export class PersonProvider extends Component {
   };
 
   setPersonInfo = info => {
-    if(info.health <0){
-      info={...info,health:0}
+    if (info.health < 0) {
+      info = { ...info, health: 0 };
     }
-    if(info.boredom <0){
-      info={...info,boredom:0}
+    if (info.boredom < 0) {
+      info = { ...info, boredom: 0 };
     }
     this.setState({ starter: info });
   };
@@ -270,6 +265,69 @@ export class PersonProvider extends Component {
     });
   };
 
+  checkIfGameOver = () => {
+    const percent = Math.floor(Math.random() * 100) + 1;
+    if (this.state.day > 5 && percent < this.state.starter.health) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/end",
+            state: { note: "Oh no! Your chance of virus unexpectedly peaked!" }
+          }}
+        />
+      );
+    }
+    if (this.state.starter.health >= 100) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/end",
+            state: {
+              note:
+                "Too much human exposure. Try practicing social distancing more!"
+            }
+          }}
+        />
+      );
+    } else if (this.state.starter.boredom >= 100) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/end",
+            state: {
+              note:
+                "Oh no! Boredom peaked! Try sneaking in some fun at-home activites."
+            }
+          }}
+        />
+      );
+    } else if (this.state.starter.food <= 0) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/end",
+            state: {
+              note:
+                "Food supply is all gone. Try replenishing with a quick market run next time!"
+            }
+          }}
+        />
+      );
+    } else if (this.state.starter.toiletpaper <= 0) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/end",
+            state: {
+              note:
+                "Toilet paper supply is empty. Try maintaining an adequate amount of toilet paper next time!"
+            }
+          }}
+        />
+      );
+    }
+  };
+
   render() {
     const value = {
       starter: this.state.starter,
@@ -280,7 +338,6 @@ export class PersonProvider extends Component {
       activityTracker: this.state.activityTracker,
       location: this.state.location,
       day: this.state.day,
-      dead: this.state.dead,
       curveball: this.state.curveball,
       renderCurve: this.state.renderCurve,
       feedTreat: this.state.feedTreat,
@@ -297,7 +354,6 @@ export class PersonProvider extends Component {
       updateCurve: this.updateCurve,
       updateRenderCurve: this.updateRenderCurve,
       incrementActivity: this.incrementActivity,
-      setDeath: this.setDeath,
       setName: this.setName,
       setCharacter: this.setCharacter,
       setPersonInfo: this.setPersonInfo,
@@ -315,7 +371,8 @@ export class PersonProvider extends Component {
       setFeedTreat: this.setFeedTreat,
       clearActivites: this.clearActivites,
       updateActivityTracker: this.updateActivityTracker,
-      turnTV: this.turnTV
+      turnTV: this.turnTV,
+      checkIfGameOver: this.checkIfGameOver
     };
 
     return (

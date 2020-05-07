@@ -28,13 +28,13 @@ export default class EndPage extends Component {
       <section className="EndPage-section">
         <div className="display-container">
           <div className="display">
-            <h1>{this.context.dead}</h1>
+            <h1>{this.props.location.state.note}</h1>
             <h2>
-              you have survived: {this.context.day} {day}
+              Score: {this.context.day} {day}
             </h2>
             <Link to="/">
               <button className="display-button" onClick={this.handleRestart}>
-                Try again
+                Play again
               </button>
             </Link>
             <Music song={Song} />

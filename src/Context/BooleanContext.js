@@ -76,15 +76,13 @@ export class BooleanProvider extends Component {
     });
   };
   renderRestart = () => {
-    this.setState(
-      {
-        start: true,
-        userPage: false,
-        game: false,
-        endgame: false,
-        renderCurve: false
-      }
-    );
+    this.setState({
+      start: true,
+      userPage: false,
+      game: false,
+      endgame: false,
+      renderCurve: false
+    });
   };
 
   toggleLeader = () => {

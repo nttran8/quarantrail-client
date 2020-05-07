@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import rockcat from "../../Images/Rocky.svg";
+import Rocky from "../../Images/gameCat.svg";
 
-export default class Box extends Component {
+export default class Cat extends Component {
   render() {
     const width = this.props.size[0];
     const height = this.props.size[1];
@@ -14,11 +14,11 @@ export default class Box extends Component {
           position: "absolute",
           left: x,
           top: y,
-          width: width + 10,
+          width: width,
           height: height
         }}
       >
-        <img className="cat" src={rockcat} alt="cat"></img>
+        <img className="catVideogame" src={Rocky} alt="cat"></img>
       </div>
     );
   }

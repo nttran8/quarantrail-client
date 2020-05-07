@@ -88,7 +88,8 @@ export default class FeedTreatGame extends Component {
         }
         tmpDirection = "right";
         break;
-      default: break;
+      default:
+        break;
     }
     cat.push(head);
     cat.shift();
@@ -179,6 +180,7 @@ export default class FeedTreatGame extends Component {
                 className={features}
                 style={style}
                 src={Rocky}
+                key={"rocky" + i + length}
                 alt="Rocky the cat"
               />
             );

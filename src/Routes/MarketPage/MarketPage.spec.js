@@ -1,30 +1,27 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import renderer from 'react-test-renderer'
-import Market from './MarketPage'
-import { MemoryRouter } from 'react-router-dom'
-import { mount } from 'enzyme'
-import PersonContext from '../../Context/PersonContext'
+import React from "react";
+import Market from "./MarketPage";
+import { MemoryRouter } from "react-router-dom";
+import { mount } from "enzyme";
+import PersonContext from "../../Context/PersonContext";
 
 describe(`Market Route`, () => {
-  it('renders by default', () => {
+  it("renders by default", () => {
     const testStarter = {
       health: 0,
       boredom: 0,
       food: 3,
       toiletpaper: 3,
       id: 1
-    }
+    };
     const ctxval = {
       starter: testStarter,
       error: null,
       name: "testName",
-      character: 'female',
+      character: "female",
       day: 1,
       dailyActivities: 0,
       activityTracker: {},
       location: "market",
-      dead: "",
       curveball: false,
       renderCurve: false,
       washHands: false,
@@ -39,7 +36,6 @@ describe(`Market Route`, () => {
       updateBuy: () => {},
       updateCurve: () => {},
       updateRenderCurve: () => {},
-      setDeath: () => {},
       setName: () => {},
       setCharacter: () => {},
       setPersonInfo: () => {},
@@ -55,12 +51,15 @@ describe(`Market Route`, () => {
       resetDay: () => {},
       setWash: () => {},
       clearActivites: () => {},
-      updateActivityTracker: () => {}
-    }
-    mount(<MemoryRouter>
-      <PersonContext.Provider value={ctxval}>
-        <Market />
-      </PersonContext.Provider>
-    </MemoryRouter>)
-  })
-})
+      updateActivityTracker: () => {},
+      checkIfGameOver: () => {}
+    };
+    mount(
+      <MemoryRouter>
+        <PersonContext.Provider value={ctxval}>
+          <Market />
+        </PersonContext.Provider>
+      </MemoryRouter>
+    );
+  });
+});

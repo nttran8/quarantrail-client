@@ -1,12 +1,16 @@
 import Matter from "matter-js";
 import Constants from "./Constants";
-const MoveBox = (entities, { input, time }) => {
+
+const CatMove = (entities, { input, time }) => {
   let engine = entities.physics.engine;
-  let box = entities.box.body;
+  let cat = entities.cat.body;
   const { payload } = input.find(x => x.name === "onMouseDown") || {};
+  // Make cat jump on clicked
   if (payload) {
-    Matter.Body.applyForce(box, box.position, { x: 0.0, y: -0.1 });
+    Matter.Body.applyForce(cat, cat.position, { x: 0.0, y: -0.1 });
   }
+
+  // Move pipes from right to left
   for (let i = 1; i <= 4; i++) {
     if (entities["pipe" + i].body.position.x <= -2.5 * Constants.PIPE_WIDTH) {
       Matter.Body.setPosition(entities["pipe" + i].body, {
@@ -54,4 +58,4 @@ const MoveBox = (entities, { input, time }) => {
   return entities;
 };
 
-export { MoveBox };
+export { CatMove };
