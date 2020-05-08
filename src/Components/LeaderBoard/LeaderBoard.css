@@ -15,7 +15,7 @@
 .leaderboard {
   background-color: #ece4a0;
   border: 3px solid #63595f;
-  height: 400px;
+  height: 450px;
   width: 270px;
 }
 
@@ -56,11 +56,13 @@
   width: 265px;
   border-top: 3px solid #63595f;
   counter-reset: li;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .leaderboard-list-item {
   display: flex;
-  /* justify-content: space-between; */
   margin: 5px 40px;
   justify-content: space-between;
   border-bottom: 1px dotted black;

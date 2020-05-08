@@ -14,8 +14,8 @@ export default class LandingPage extends Component {
           <h1>The year was 2020...</h1>
           <p>
             ...a global pandemic swept across the planet and kept everyone in
-            quarantine. Adjusting to the new lifestyle is easy as you journey
-            through supply shortages and health risks.
+            quarantine. Adjusting to the new lifestyle is not easy as you
+            journey through supply shortages and health risks.
           </p>
         </div>
         <button className="introButton" onClick={this.context.renderUser}>

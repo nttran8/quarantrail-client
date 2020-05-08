@@ -37,6 +37,7 @@ export default class StartPage extends Component {
               value={this.context.name}
               onChange={this.updateName}
               required
+              minLength="3"
               maxLength="3"
             ></input>
           </div>

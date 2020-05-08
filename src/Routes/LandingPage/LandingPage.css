@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
   background-color: rgb(153, 140, 148);
   height: 90vh;
 }
@@ -20,13 +20,13 @@
 }
 
 .landingPage .intro h1 {
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
   margin-bottom: 5px;
 }
 
 .landingPage .intro p {
-  line-height: 20px;
+  line-height: 25px;
   font-size: 14px;
   text-align: center;
 }
@@ -52,8 +52,8 @@
 @media screen and (min-width: 720px) {
   .landingPage {
     padding-top: 0;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 30vw;
+    padding-right: 30vw;
   }
 
   .landingPage img {

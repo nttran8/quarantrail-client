@@ -19,6 +19,7 @@
 
 .feedbackText {
   margin-bottom: 20px;
+  text-align: left;
 }
 
 @media screen and (min-width: 320px) {

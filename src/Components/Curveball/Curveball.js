@@ -99,7 +99,7 @@ export default class Curveball extends Component {
 
   render() {
     return this.state.render ? (
-      <section className="curveball middle">
+      <section className="curveball">
         <h2>{this.state.curveball.question}</h2>
         <div className="curveballButtons">
           <button className="popupButton" onClick={this.accept}>

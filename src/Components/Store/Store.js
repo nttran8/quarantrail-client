@@ -7,98 +7,47 @@ export default class Store extends Component {
 
   state = {
     food: 0,
-    toiletPaper: 0,
-    exceededLimit: false,
-    disabled: this.context.buyOnce
+    toiletpaper: 0
   };
 
-  handlePlusFood = () => {
-    if (this.state.food + this.context.starter.food >= 6) {
-      return;
+  handleAddFood = () => {
+    // Add food to cart if limit is not exceeded
+    if (this.state.food + this.context.starter.food < 6) {
+      this.setState({ food: this.state.food + 1 });
     }
-    this.setState({ food: this.state.food + 1 });
   };
 
-  handleMinusFood = () => {
-    if (this.state.food === 0) {
-      return;
+  handleSubFood = () => {
+    // Remove food to cart if limit is not exceeded
+    if (this.state.food !== 0) {
+      this.setState({ food: this.state.food - 1 });
     }
-    this.setState({ food: this.state.food - 1 });
   };
 
-  handlePlusTp = () => {
-    if (this.state.toiletPaper + this.context.starter.toiletpaper >= 6) {
-      return;
+  handleAddTp = () => {
+    // Add toiletpaper to cart if limit is not exceeded
+    if (this.state.toiletpaper + this.context.starter.toiletpaper < 6) {
+      this.setState({ toiletpaper: this.state.toiletpaper + 0.5 });
     }
-    this.setState({ toiletPaper: this.state.toiletPaper + 0.5 });
   };
 
-  handleMinusTp = () => {
-    if (this.state.toiletPaper === 0) {
-      return;
-    }
-    this.setState({ toiletPaper: this.state.toiletPaper - 0.5 });
-  };
-
-  checkTooMuch = () => {
-    const { food, toiletpaper } = this.context.starter;
-    if (
-      food + this.state.food >= 6 ||
-      this.state.toiletPaper + toiletpaper >= 6
-    ) {
-      this.setState({ exceededLimit: true });
-      return;
+  handleSubTp = () => {
+    // Remove toiletpaper to cart if limit is not exceeded
+    if (this.state.toiletpaper !== 0) {
+      this.setState({ toiletpaper: this.state.toiletpaper - 0.5 });
     }
   };
 
   handleCheckout = () => {
-    const { food, toiletpaper } = this.context.starter;
-
-    this.checkTooMuch();
-    this.context.addToFoodandToilet(this.state.food, this.state.toiletPaper);
-    this.setState({
-      food: 0,
-      toiletPaper: 0,
-      disabled: true
-    });
-    if (
-      this.state.food + food >= 6 ||
-      this.state.toiletPaper + toiletpaper >= 6
-    ) {
-    } else {
-      this.props.shopping();
-      this.context.updateBuy(true);
-    }
-  };
-
-  renderCannotBuy = () => {
-    return (
-      <div className="popupScreen">
-        <h1>You have too much</h1>
-        <p>
-          You have too much and the other shoppers decided to take out of your
-          cart so bye-bye good luck
-        </p>
-        <button
-          className="popupButton"
-          onClick={e => this.handleSubmitforTooMuch(e)}
-        >
-          wow
-        </button>
-      </div>
-    );
-  };
-
-  handleSubmitforTooMuch = e => {
-    e.preventDefault();
-    this.context.addToFoodandToilet(-2, -2);
-    this.setState({ exceededLimit: false });
+    // Check if limits have exceeded at checkout before allowing users to buy
+    this.context.addToFoodandToilet(this.state.food, this.state.toiletpaper);
     this.props.shopping();
     this.context.updateBuy(true);
+    this.context.updateFeedback(true);
   };
 
-  renderMarket = () => {
-    const { food, toiletPaper, disabled } = this.state;
+  render() {
+    const { food, toiletpaper } = this.state;
     return (
       <div className="store">
         <p>
@@ -108,33 +57,23 @@ export default class Store extends Component {
         <div className="store-food">
           <p>Food</p>
           {food}
-          <button onClick={this.handlePlusFood}>+</button>
-          <button onClick={this.handleMinusFood}>-</button>
+          <button onClick={this.handleAddFood}>+</button>
+          <button onClick={this.handleSubFood}>-</button>
         </div>
         <div className="store-toilet-paper">
           <p>Toilet Paper</p>
-          {toiletPaper}
-          <button onClick={this.handlePlusTp}>+</button>
-          <button onClick={this.handleMinusTp}>-</button>
+          {toiletpaper}
+          <button onClick={this.handleAddTp}>+</button>
+          <button onClick={this.handleSubTp}>-</button>
         </div>
         <button
-          disabled={disabled}
+          disabled={this.context.buyOnce}
           className="checkout-button"
           onClick={this.handleCheckout}
         >
           Buy
         </button>
       </div>
-    );
-  };
-
-  render() {
-    return (
-      <>
-        {this.state.exceededLimit
-          ? this.renderCannotBuy()
-          : this.renderMarket()}
-      </>
     );
   }
 }

@@ -55,6 +55,7 @@
 
 .popupScreen {
   position: absolute;
+  top: 30%;
   font-size: 14px;
   border-radius: 3px;
   background-color: rgb(153, 140, 148);

@@ -30,6 +30,18 @@ export default class MarketPage extends Component {
     this.props.history.push("/");
   };
 
+  renderThankYou = () => {
+    return (
+      <div className="popupScreen">
+        <h1>Thanks for visiting</h1>
+        <p>
+          Please come back tomorrow as we limit each customer from shopping once
+          per day.
+        </p>
+      </div>
+    );
+  };
+
   render() {
     this.context.checkIfGameOver();
     let disabled;
@@ -67,6 +79,7 @@ export default class MarketPage extends Component {
         </div>
         <div className="store-section">
           {shopping && <Store shopping={this.handleShop} />}
+          {this.context.buyOnce && this.renderThankYou()}
         </div>
         <Music song={Song} />
       </section>
