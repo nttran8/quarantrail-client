@@ -6,9 +6,6 @@ import "./Music.css";
 
 export default class Music extends Component {
   static contextType = BooleanContext;
-  // constructor(props) {
-  //   super(props);
-  // }
 
   render() {
     return (

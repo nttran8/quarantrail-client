@@ -53,6 +53,10 @@
   background-color: rgb(209, 192, 41);
 }
 
+.hideBar {
+  background-color: transparent;
+}
+
 @media screen and (min-width: 720px) {
   .bar {
     width: 250px;

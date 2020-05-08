@@ -7,16 +7,13 @@ export default class StatusBar extends Component {
   static contextType = PersonContext;
 
   showBar = type => {
-    if (this.context.starter[type] === 0) {
-      return;
-    } else {
+    // Show status bars if value is greater than zero
+    if (this.context.starter[type] > 0) {
       return "showBar";
-    }
+    } else return "hideBar";
   };
 
   render() {
-    const remainingHealth = 100 - this.context.starter.health;
-    const remainingBoredom = 100 - this.context.starter.boredom;
     return (
       <section className="StatusBar">
         <div className="barContainer virusContainer">
@@ -31,7 +28,7 @@ export default class StatusBar extends Component {
             </div>
             <div
               className="remaining"
-              style={{ width: remainingHealth + "%" }}
+              style={{ width: 100 - this.context.starter.health + "%" }}
             ></div>
           </div>
         </div>
@@ -47,7 +44,7 @@ export default class StatusBar extends Component {
             </div>
             <div
               className="remaining"
-              style={{ width: remainingBoredom + "%" }}
+              style={{ width: 100 - this.context.starter.boredom + "%" }}
             ></div>
           </div>
         </div>

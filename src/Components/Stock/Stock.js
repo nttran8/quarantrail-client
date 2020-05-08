@@ -5,6 +5,7 @@ import "./Stock.css";
 
 export default class Stock extends Component {
   static contextType = PersonContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -12,31 +13,28 @@ export default class Stock extends Component {
     };
   }
 
-  handleClick = () => {
-    let show = !this.state.showStocks;
+  toggleStocks = () => {
+    // Show and hide stocks
     this.setState({
-      showStocks: show
+      showStocks: !this.state.showStocks
     });
   };
-  stockFormat() {
-    return (
-      <div>
-        <p className="header">Stocks</p>
-        <p className="supplies">Food: {this.context.starter.food}</p>
-        <p className="supplies">
-          Toilet paper: {this.context.starter.toiletpaper}
-        </p>
-      </div>
-    );
-  }
 
   render() {
     return (
       <div className="stock">
-        <button className="interactiveButton" onClick={this.handleClick}>
+        <button className="interactiveButton" onClick={this.toggleStocks}>
           <FontAwesomeIcon icon="box-open" />
         </button>
-        {this.state.showStocks ? this.stockFormat() : <></>}
+        {this.state.showStocks && (
+          <div>
+            <p className="header">Stocks</p>
+            <p className="supplies">Food: {this.context.starter.food}</p>
+            <p className="supplies">
+              Toilet paper: {this.context.starter.toiletpaper}
+            </p>
+          </div>
+        )}
       </div>
     );
   }
