@@ -18,7 +18,7 @@ export default class WashGame extends Component {
           <div className={hands_class} id="left-hand"></div>
           <div className={hands_class} id="right-hand"></div>
         </div>
-        <button className="popupButton washingHangButton" onClick={this.wash}>
+        <button className="popupButton washingHandButton" onClick={this.wash}>
           Wash
         </button>
       </>

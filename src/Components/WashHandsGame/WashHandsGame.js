@@ -114,9 +114,12 @@ export default class BestGameEver extends Component {
           <div id="myBar" className="washHandTimer"></div>
         </div>
         {!ready && (
-          <button className="popupButton washHandButton" onClick={this.ready}>
-            Ready
-          </button>
+          <div className="popupScreen">
+            <p>Please scrub for 20 seconds</p>
+            <button className="popupButton" onClick={this.ready}>
+              Ready
+            </button>
+          </div>
         )}
         {ready && <WashGame changeCount={this.changeCount} />}
         {done && this.doneScreen()}
