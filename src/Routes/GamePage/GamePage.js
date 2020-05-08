@@ -6,7 +6,6 @@ import PersonContext from "../../Context/PersonContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./GamePage.css";
 import StatusBar from "../../Components/StatusBar/StatusBar";
-import FirstDay from "../../Components/FirstDay/FirstDay";
 import Day from "../../Components/Day/Day";
 import gameService from "../../services/gameService";
 import Curveball from "../../Components/Curveball/Curveball";
@@ -15,28 +14,20 @@ import Song from "../../Sound/8bitsurf.mp3";
 import Pet from "../../Components/Pet/Pet";
 import Phone from "../../Components/Phone/Phone";
 import Feedback from "../../Components/Feedback/Feedback";
+
 export default class GamePage extends Component {
   static contextType = PersonContext;
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: false
-    };
-  }
 
   componentDidMount() {
-    if (this.context.day === 0) {
+    if (Object.entries(this.context.starter).length === 0) {
       gameService
         .getGameinfo()
-        .then(info => {
-          this.context.setPersonInfo(info);
+        .then(initialVal => {
+          this.context.setPersonInfo(initialVal);
+          this.context.clearActivites();
         })
         .catch(this.context.setError);
-      this.context.clearActivites();
     }
-    this.setState({
-      active: true
-    });
   }
 
   updateLocationM = () => {
@@ -73,7 +64,6 @@ export default class GamePage extends Component {
     }
     return (
       <section className="gamePage gameSetting">
-        {this.context.day === 0 ? <FirstDay /> : <></>}
         <div className="top">
           <StatusBar />
           <Day />

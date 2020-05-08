@@ -26,7 +26,7 @@ export default class ParkActivities extends Component {
   updateScore = (health, boredom) => {
     // Adjust health and boredom scores
     this.setState({ activites: this.state.activites + 1 });
-    this.context.updateScore({ infection: health, boredom });
+    this.context.updateScore({ health, boredom });
     this.context.addToBoredom(boredom);
     this.context.addToHealth(health);
     if (this.context.dailyActivities === 0) {

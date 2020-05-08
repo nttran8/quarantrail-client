@@ -15,8 +15,8 @@ export default class StatusBar extends Component {
   };
 
   render() {
-    const remCorona = 100 - this.context.starter.health;
-    const remBoredom = 100 - this.context.starter.boredom;
+    const remainingHealth = 100 - this.context.starter.health;
+    const remainingBoredom = 100 - this.context.starter.boredom;
     return (
       <section className="StatusBar">
         <div className="barContainer virusContainer">
@@ -29,7 +29,10 @@ export default class StatusBar extends Component {
             >
               <p>{this.context.starter.health}%</p>
             </div>
-            <div className="remaining" style={{ width: remCorona + "%" }}></div>
+            <div
+              className="remaining"
+              style={{ width: remainingHealth + "%" }}
+            ></div>
           </div>
         </div>
         <div className="barContainer boredomContainer">
@@ -44,7 +47,7 @@ export default class StatusBar extends Component {
             </div>
             <div
               className="remaining"
-              style={{ width: remBoredom + "%" }}
+              style={{ width: remainingBoredom + "%" }}
             ></div>
           </div>
         </div>

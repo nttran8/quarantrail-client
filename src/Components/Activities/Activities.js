@@ -25,16 +25,8 @@ export default class Activities extends Component {
 
   updateScore = (health, boredom) => {
     // Adjust health and boredom scores
-    let updatedUserScore = {
-      id: this.context.starter.id,
-      health: this.context.starter.health + health,
-      boredom: this.context.starter.boredom + boredom,
-      toiletpaper: this.context.starter.toiletpaper,
-      food: this.context.starter.food
-    };
-
-    this.context.updateScore({ infection: health, boredom });
-    this.context.setPersonInfo(updatedUserScore);
+    this.context.updateScore({ health, boredom });
+    // this.context.setPersonInfo(updatedUserScore);
 
     if (this.context.dailyActivities === 0) {
       this.renderSleep();

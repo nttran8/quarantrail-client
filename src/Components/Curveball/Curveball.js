@@ -12,6 +12,7 @@ export default class Curveball extends Component {
   };
 
   componentDidMount() {
+    // Get curveball that's appropriate for the setting
     gameService
       .getCurveBall(this.context.location)
       .then(info => {
@@ -23,26 +24,28 @@ export default class Curveball extends Component {
   }
 
   accept = () => {
+    // Update score if yes to curveball
     const { health, boredom, toiletpaper, food } = this.state.curveball.yes;
-    let newData = {
+    let updatedScore = {
       health: this.context.starter.health + health,
       boredom: this.context.starter.boredom + boredom,
       toiletpaper: this.context.starter.toiletpaper + toiletpaper,
       food: this.context.starter.food + food
     };
-    if (newData.health < 0) {
-      newData = {
-        ...newData,
+    if (updatedScore.health < 0) {
+      updatedScore = {
+        ...updatedScore,
         health: 0
       };
     }
-    if (newData.boredom < 0) {
-      newData = {
-        ...newData,
+    if (updatedScore.boredom < 0) {
+      updatedScore = {
+        ...updatedScore,
         boredom: 0
       };
     }
-    this.context.setPersonInfo(newData);
+
+    this.context.setPersonInfo(updatedScore);
     this.setState({
       render: false
     });
@@ -58,6 +61,7 @@ export default class Curveball extends Component {
   };
 
   reject = () => {
+    // Update score if no to curveball
     const { health, boredom, toiletpaper, food } = this.state.curveball.no;
     let newData = {
       health: this.context.starter.health + health,
@@ -77,6 +81,7 @@ export default class Curveball extends Component {
         boredom: 0
       };
     }
+
     this.context.setPersonInfo(newData);
     this.setState({
       render: false

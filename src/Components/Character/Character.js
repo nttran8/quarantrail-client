@@ -3,14 +3,6 @@ import femaleChar from "../../Images/FemaleChar.svg";
 import MaleChar from "../../Images/MaleChar.svg";
 import PersonContext from "../../Context/PersonContext";
 import "./Character.css";
-// import styled, { keyframes } from 'styled-components';
-// import { bounce } from 'react-animations';
-
-// const bounceAnimation = keyframes`${bounce}`;
-
-// const BouncyDiv = styled.div`
-//   animation: 3s ${bounceAnimation};
-// `;
 
 export default class Character extends Component {
   static contextType = PersonContext;
@@ -20,16 +12,19 @@ export default class Character extends Component {
   };
 
   selectFemale = event => {
+    // Update female character selection
     this.context.setCharacter("female");
     this.setState({ character: "female" });
   };
 
   selectMale = event => {
+    // Update male character selection
     this.context.setCharacter("male");
     this.setState({ character: "male" });
   };
 
   selectCharacter = () => {
+    // Allow users to select a character before game starts
     return (
       <div className="character">
         <h1>Select your player</h1>
@@ -54,6 +49,7 @@ export default class Character extends Component {
   };
 
   renderCharacter = () => {
+    // Show selected character during game
     if (this.context.character === "female") {
       return <img id="mainChar" src={femaleChar} alt="female character" />;
     }

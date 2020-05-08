@@ -210,7 +210,7 @@ export default class Runner extends Component {
     }
     this.context.addToHealth(5);
     this.context.addToBoredom(score);
-    this.context.updateScore({ infection: 5, boredom: score });
+    this.context.updateScore({ health: 5, boredom: score });
     this.context.updateFeedback(true);
   };
 

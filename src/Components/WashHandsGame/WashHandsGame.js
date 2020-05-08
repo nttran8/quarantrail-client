@@ -49,7 +49,7 @@ export default class BestGameEver extends Component {
     }
     this.context.addToHealth(score);
     this.context.updateFeedback(true);
-    this.context.updateScore({ infection: score, boredom: 0 });
+    this.context.updateScore({ health: score, boredom: 0 });
   };
 
   doneScreen = () => {

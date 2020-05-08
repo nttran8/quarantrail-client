@@ -9,6 +9,7 @@ import Rocky from "../../Images/gameCat.svg";
 import "./FeedTreatGame.css";
 
 const getRandomPosition = () => {
+  // Generate random coordinate to place treat
   let min = 1;
   let max = 98;
   let x = Math.floor((Math.random() * (max - 3) + min) / 2) * 2;
@@ -32,20 +33,24 @@ export default class FeedTreatGame extends Component {
   state = initialState;
 
   componentDidMount() {
+    // Update direction and movement of cat
     document.onkeydown = this.onKeyDown;
   }
 
   componentWillUnmount() {
+    // Clear countdown timer
     if (intervalId) {
       clearInterval(intervalId);
     }
   }
 
   componentDidUpdate() {
+    // Check if cat found treat on each move
     this.checkIfFoundTreat();
   }
 
   startTimer = () => {
+    // Start countdown timer
     if (this.state.instruction === true) {
       intervalId = setInterval(() => {
         if (this.state.timer === 0) {
@@ -58,6 +63,7 @@ export default class FeedTreatGame extends Component {
   };
 
   onKeyDown = e => {
+    // Move the cat on each key down event
     this.startTimer();
     let cat = [...this.state.catLength];
     let head = cat[cat.length - 1];
@@ -101,6 +107,7 @@ export default class FeedTreatGame extends Component {
   };
 
   checkIfFoundTreat = () => {
+    // Check if any part of cat body touches treat
     const { catLength, treat, count } = this.state;
     let head = catLength[catLength.length - 1];
     if (
@@ -125,6 +132,7 @@ export default class FeedTreatGame extends Component {
   };
 
   renderFinished = () => {
+    // Show game over screen and feedback
     let message = "";
     if (intervalId) {
       clearInterval(intervalId);
@@ -146,6 +154,7 @@ export default class FeedTreatGame extends Component {
   };
 
   renderInstruction = () => {
+    // Show instruction screen
     return (
       <div className="popupScreen">
         <p>You have 20 seconds to feed Rocky 5 fish bites!</p>

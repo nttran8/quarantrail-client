@@ -118,7 +118,7 @@ export class PersonProvider extends Component {
   };
 
   setError = error => {
-    console.error(error);
+    console.log(error);
     this.setState({ error });
   };
 
@@ -285,14 +285,27 @@ export class PersonProvider extends Component {
     });
   };
 
-  updateScore = rate => {
-    let newCount = this.state.dailyActivities;
-    newCount -= 1;
-    this.setState({
-      dailyActivities: newCount
-    });
+  updateScore = score => {
+    let updatedScore = {
+      health: this.state.starter.health + score.health,
+      boredom: this.state.starter.boredom + score.boredom,
+      toiletpaper: this.state.starter.toiletpaper,
+      food: this.state.starter.food
+    };
 
-    this.setState({ increaseRate: rate });
+    if (updatedScore.health < 0) {
+      updatedScore = { ...updatedScore, health: 0 };
+    }
+
+    if (updatedScore.boredom < 0) {
+      updatedScore = { ...updatedScore, boredom: 0 };
+    }
+
+    this.setState({
+      dailyActivities: this.state.dailyActivities - 1,
+      increaseRate: score,
+      starter: updatedScore
+    });
   };
 
   clearActivites = () => {
