@@ -6,90 +6,85 @@ export default class Store extends Component {
   static contextType = PersonContext;
 
   state = {
-    foodCounter: 0,
-    toiletPaperCounter: 0,
-    foodLimit: 6,
-    toiletLimit: 6,
-    tooMuch: false,
-    disabled: this.context.buyOnce,
+    food: 0,
+    toiletPaper: 0,
+    exceededLimit: false,
+    disabled: this.context.buyOnce
   };
 
   handlePlusFood = () => {
-    if (this.state.foodCounter + this.context.starter.food >= 6) {
+    if (this.state.food + this.context.starter.food >= 6) {
       return;
     }
-    this.setState({ foodCounter: this.state.foodCounter + 1 });
+    this.setState({ food: this.state.food + 1 });
   };
 
   handleMinusFood = () => {
-    if (this.state.foodCounter === 0) {
+    if (this.state.food === 0) {
       return;
     }
-    this.setState({ foodCounter: this.state.foodCounter - 1 });
+    this.setState({ food: this.state.food - 1 });
   };
 
   handlePlusTp = () => {
-    if (
-      this.state.toiletPaperCounter + this.context.starter.toiletpaper >=
-      6
-    ) {
+    if (this.state.toiletPaper + this.context.starter.toiletpaper >= 6) {
       return;
     }
-    this.setState({ toiletPaperCounter: this.state.toiletPaperCounter + 0.5 });
+    this.setState({ toiletPaper: this.state.toiletPaper + 0.5 });
   };
 
   handleMinusTp = () => {
-    if (this.state.toiletPaperCounter === 0) {
+    if (this.state.toiletPaper === 0) {
       return;
     }
-    this.setState({ toiletPaperCounter: this.state.toiletPaperCounter - 0.5 });
+    this.setState({ toiletPaper: this.state.toiletPaper - 0.5 });
   };
 
   checkTooMuch = () => {
-    const { foodCounter, toiletPaperCounter } = this.state;
     const { food, toiletpaper } = this.context.starter;
-    if (foodCounter + food >= 6) {
-      
-      this.setState({ tooMuch: true })
-      return
-    }
-    if (toiletPaperCounter + toiletpaper >= 6) {
-      
-      this.setState({ tooMuch: true })
-      return
-    }
-  }
-
-  handleCheckout = () => {
-    const { foodCounter, toiletPaperCounter } = this.state;
-    const { food, toiletpaper } = this.context.starter;
-
-    this.checkTooMuch()
-    this.context.addToFoodandToilet(foodCounter, toiletPaperCounter);
-    this.setState({
-      foodCounter: 0,
-      toiletPaperCounter: 0,
-      disabled: true
-    });
-    if(foodCounter + food >= 6 || toiletPaperCounter + toiletpaper >= 6) {
-    }
-    else{
-      this.props.shopping()
-      this.context.updateBuy(true)
+    if (
+      food + this.state.food >= 6 ||
+      this.state.toiletPaper + toiletpaper >= 6
+    ) {
+      this.setState({ exceededLimit: true });
+      return;
     }
   };
 
-  tooMuch = () => {
+  handleCheckout = () => {
+    const { food, toiletpaper } = this.context.starter;
+
+    this.checkTooMuch();
+    this.context.addToFoodandToilet(this.state.food, this.state.toiletPaper);
+    this.setState({
+      food: 0,
+      toiletPaper: 0,
+      disabled: true
+    });
+    if (
+      this.state.food + food >= 6 ||
+      this.state.toiletPaper + toiletpaper >= 6
+    ) {
+    } else {
+      this.props.shopping();
+      this.context.updateBuy(true);
+    }
+  };
+
+  renderCannotBuy = () => {
     return (
-      <div className="middle">
-        <div className="box">
-          <h1>You have too much</h1>
-          <p>
-            You have too much and the other shoppers decided to take out of your
-            cart so bye-bye good luck
-          </p>
-          <button onClick={e => this.handleSubmitforTooMuch(e)}>wow</button>
-        </div>
+      <div className="popupScreen">
+        <h1>You have too much</h1>
+        <p>
+          You have too much and the other shoppers decided to take out of your
+          cart so bye-bye good luck
+        </p>
+        <button
+          className="popupButton"
+          onClick={e => this.handleSubmitforTooMuch(e)}
+        >
+          wow
+        </button>
       </div>
     );
   };
@@ -97,33 +92,36 @@ export default class Store extends Component {
   handleSubmitforTooMuch = e => {
     e.preventDefault();
     this.context.addToFoodandToilet(-2, -2);
-    this.setState({ tooMuch: false });
-    this.props.shopping()
-    this.context.updateBuy(true)
+    this.setState({ exceededLimit: false });
+    this.props.shopping();
+    this.context.updateBuy(true);
   };
 
-  original = () => {
-    const { foodCounter, toiletPaperCounter, disabled } = this.state;
+  renderMarket = () => {
+    const { food, toiletPaper, disabled } = this.state;
     return (
       <div className="store">
         <p>
-          Welcome to Trader Jone's! As you see were a little bare right now due
-          to the crisis, but hey all business is good business right? Look
-          around and let me know if you'd like any food or toilet paper.
+          Welcome to Trader Jone's! We are a bit bare right now but we'll get
+          through this together.
         </p>
         <div className="store-food">
           <p>Food</p>
-          {foodCounter}
+          {food}
           <button onClick={this.handlePlusFood}>+</button>
           <button onClick={this.handleMinusFood}>-</button>
         </div>
         <div className="store-toilet-paper">
           <p>Toilet Paper</p>
-          {toiletPaperCounter}
+          {toiletPaper}
           <button onClick={this.handlePlusTp}>+</button>
           <button onClick={this.handleMinusTp}>-</button>
         </div>
-        <button disabled={disabled} className="checkout-button" onClick={this.handleCheckout}>
+        <button
+          disabled={disabled}
+          className="checkout-button"
+          onClick={this.handleCheckout}
+        >
           Buy
         </button>
       </div>
@@ -131,6 +129,12 @@ export default class Store extends Component {
   };
 
   render() {
-    return <>{this.state.tooMuch ? this.tooMuch() : this.original()}</>;
+    return (
+      <>
+        {this.state.exceededLimit
+          ? this.renderCannotBuy()
+          : this.renderMarket()}
+      </>
+    );
   }
 }

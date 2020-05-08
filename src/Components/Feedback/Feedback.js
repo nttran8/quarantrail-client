@@ -5,30 +5,36 @@ import "./Feedback.css";
 export default class Feedback extends Component {
   static contextType = PersonContext;
 
-  state = {
-    render: true,
-    health: this.context.increaseRate.health,
-    boredom: this.context.increaseRate.boredom
-  };
-
   close = () => {
     // Exit out of feedback
-    this.setState({ render: false });
     this.context.updateFeedback(false);
   };
 
+  showUpdatedHealth = () => {
+    // Show how health or boredom was effected
+    const { health, boredom } = this.context.starter;
+    if (health === 0 && boredom === 0) {
+      return "Infection and boredom rates were not affected at the moment";
+    }
+
+    let feedback = `Updated: `;
+    if (health !== 0 && this.context.increaseRate.health !== 0) {
+      feedback += `infection rate by ${this.context.increaseRate.health}`;
+    }
+    if (boredom !== 0 && this.context.increaseRate.boredom !== 0) {
+      feedback += `boredom rate by ${this.context.increaseRate.boredom}`;
+    }
+    return feedback;
+  };
+
   render() {
-    const { render, health, boredom } = this.state;
-    return { render } ? (
+    return (
       <section className="feedback">
         <button className="feedbackButt" onClick={this.close}>
           X
         </button>
-        <p className="feedbackText">
-          You have increased your infection rate by {health}%{" "}
-        </p>
-        <p>You have increased your boredom rate by {boredom}% </p>
+        <p className="feedbackText">{this.showUpdatedHealth()}</p>
       </section>
-    ) : null;
+    );
   }
 }

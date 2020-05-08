@@ -14,9 +14,8 @@ export default class LandingPage extends Component {
           <h1>The year was 2020...</h1>
           <p>
             ...a global pandemic swept across the planet and kept everyone in
-            quarantine. It may be easy on day 1 or 2, but a whole week? Month?
-            How long could you go on for? Find out as you journey through
-            boredom and risk in QuaranTrail.
+            quarantine. Adjusting to the new lifestyle is easy as you journey
+            through supply shortages and health risks.
           </p>
         </div>
         <button className="introButton" onClick={this.context.renderUser}>
