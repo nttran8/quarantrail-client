@@ -8,75 +8,59 @@ export default class ParkActivities extends Component {
 
   state = {
     disabled: false,
-    viewActivities: false,
-    previousAct: "",
-    previousCount: 0
+    viewActivities: false
   };
 
   componentDidMount = () => {
-    if (this.context.dailyActivities === -1) {
+    // Allow player to end the day after 3 unique activities
+    if (this.context.dailyActivities < 0) {
       this.renderSleep();
     }
   };
 
-  performActivity = (name, health, boredom) => {
+  toggleActivities = () => {
+    // Show and hide activities
+    this.setState({ viewActivities: !this.state.viewActivities });
+  };
+
+  updateScore = (health, boredom) => {
+    // Adjust health and boredom scores
     this.setState({ activites: this.state.activites + 1 });
-    if (this.state.previousAct === name) {
-      this.setState({
-        previousCount: this.state.previousCount + 1
-      });
-
-      if (this.state.previousCount === 0) {
-        this.context.addToBoredom(boredom * 0.8);
-        this.context.setIncrease({ infection: health, boredom: boredom * 0.8 });
-      }
-
-      if (this.state.previousCount === 1) {
-        this.context.addToBoredom(boredom * 0.6);
-        this.context.setIncrease({ infection: health, boredom: boredom * 0.6 });
-      }
-    } else {
-      this.setState({
-        previousAct: name,
-        previousCount: 0
-      });
-      this.context.addToBoredom(boredom);
-      this.context.setIncrease({ infection: health, boredom: boredom });
-    }
+    this.context.updateScore({ infection: health, boredom });
+    this.context.addToBoredom(boredom);
     this.context.addToHealth(health);
-    this.context.incrementActivity();
     if (this.context.dailyActivities === 0) {
       this.renderSleep();
     }
   };
 
-  handleClickViewActivities = () => {
-    this.setState({ viewActivities: !this.state.viewActivities });
-  };
-
-  handleRunning = () => {
+  handleExercise = () => {
+    this.context.setExercise(true);
     this.props.history.push("/swerveExercise");
   };
 
-  handleTreat = () => {
-    this.performActivity("treat", 10, -10);
-    this.context.updateFeedback(true);
+  handleFeedTreat = () => {
     this.context.setFeedTreat(true);
+    this.updateScore(10, -10);
+    this.context.updateFeedback(true);
     this.props.history.push("/feedTreats");
   };
 
-  handleFetch = () => {
-    this.performActivity("fetch", 0, -10);
-    this.context.updateFeedback(true);
-  };
-
   handleChat = () => {
-    this.performActivity("chat", 50, -15);
+    this.context.setChat(true);
+    this.updateScore(50, -15);
     this.context.updateFeedback(true);
   };
 
-  handleRowing = () => {
-    this.performActivity("rowing", 20, -15);
+  handleRow = () => {
+    this.context.setRow(true);
+    this.updateScore(20, -15);
+    this.context.updateFeedback(true);
+  };
+
+  handleFetch = () => {
+    this.context.setFetch(true);
+    this.updateScore(0, -10);
     this.context.updateFeedback(true);
   };
 
@@ -88,10 +72,7 @@ export default class ParkActivities extends Component {
     const { disabled, viewActivities } = this.state;
     return (
       <div className="activityBar">
-        <button
-          className="interactiveButton"
-          onClick={this.handleClickViewActivities}
-        >
+        <button className="interactiveButton" onClick={this.toggleActivities}>
           <FontAwesomeIcon icon="icons" />
         </button>
         {viewActivities && (
@@ -102,8 +83,8 @@ export default class ParkActivities extends Component {
 
             <button
               className="mybutton"
-              disabled={disabled}
-              onClick={this.handleRunning}
+              disabled={this.context.exercise || disabled}
+              onClick={this.handleExercise}
             >
               <FontAwesomeIcon icon="running" />
             </button>
@@ -111,14 +92,14 @@ export default class ParkActivities extends Component {
             <button
               className="mybutton"
               disabled={this.context.feedTreat || disabled}
-              onClick={this.handleTreat}
+              onClick={this.handleFeedTreat}
             >
               <FontAwesomeIcon icon="bone" />
             </button>
 
             <button
               className="mybutton"
-              disabled={disabled}
+              disabled={this.context.chat || disabled}
               onClick={this.handleChat}
             >
               <FontAwesomeIcon icon="comment" />
@@ -126,8 +107,8 @@ export default class ParkActivities extends Component {
 
             <button
               className="mybutton"
-              disabled={disabled}
-              onClick={this.handleRowing}
+              disabled={this.context.row || disabled}
+              onClick={this.handleRow}
             >
               <svg
                 width="60"
@@ -145,7 +126,7 @@ export default class ParkActivities extends Component {
             </button>
             <button
               className="mybutton"
-              disabled={disabled}
+              disabled={this.context.fetch || disabled}
               onClick={this.handleFetch}
             >
               <FontAwesomeIcon icon="baseball-ball" />

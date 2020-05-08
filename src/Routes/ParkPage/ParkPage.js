@@ -27,6 +27,7 @@ export default class ParkPage extends Component {
     } else {
       disabled = false;
     }
+
     return (
       <section className="parkpage gameSetting">
         {this.context.checkIfGameOver()}

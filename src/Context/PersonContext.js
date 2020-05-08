@@ -8,23 +8,29 @@ const PersonContext = React.createContext({
   character: null,
   day: 0,
   dailyActivities: 2,
-  activityTracker: {},
   location: "home",
   curveball: false,
   renderCurve: false,
-  feedTreat: false,
+  playVideogame: false,
+  usePhone: false,
+  gatherFriends: false,
+  eat: false,
   washHands: false,
+  exercise: false,
+  feedTreat: false,
+  chat: false,
+  row: false,
+  fetch: false,
   buyOnce: false,
   renderPhone: false,
-  TV: false,
   renderFeedback: false,
   increaseRate: {},
-  setIncrease: () => {},
   updateFeedback: () => {},
   updatePhone: () => {},
   updateBuy: () => {},
   updateCurve: () => {},
   updateRenderCurve: () => {},
+  updateScore: () => {},
   setName: () => {},
   setCharacter: () => {},
   setPersonInfo: () => {},
@@ -38,10 +44,17 @@ const PersonContext = React.createContext({
   addToBoredom: () => {},
   updateLocation: () => {},
   resetDay: () => {},
+  setPlayVideogame: () => {},
+  setUsePhone: () => {},
+  setGatherFriends: () => {},
+  setEat: () => {},
+  setWashHands: () => {},
+  setExercise: () => {},
   setFeedTreat: () => {},
-  setWash: () => {},
+  setChat: () => {},
+  setRow: () => {},
+  setFetch: () => {},
   clearActivites: () => {},
-  updateActivityTracker: () => {},
   checkIfGameOver: () => {}
 });
 
@@ -55,21 +68,23 @@ export class PersonProvider extends Component {
     character: null,
     day: 0,
     dailyActivities: 2,
-    activityTracker: {},
     location: "home",
     curveball: false,
     renderCurve: false,
-    feedTreat: false,
+    playVideogame: false,
+    usePhone: false,
+    gatherFriends: false,
+    eat: false,
     washHands: false,
+    exercise: false,
+    feedTreat: false,
+    chat: false,
+    row: false,
+    fetch: false,
     buyOnce: false,
     renderPhone: false,
-    TV: false,
     renderFeedback: false,
     increaseRate: {}
-  };
-
-  setIncrease = rate => {
-    this.setState({ increaseRate: rate });
   };
 
   updateFeedback = bool => {
@@ -111,15 +126,63 @@ export class PersonProvider extends Component {
     this.setState({ error: null });
   };
 
-  setWash = bool => {
+  setPlayVideogame = bool => {
+    this.setState({
+      playVideogame: bool
+    });
+  };
+
+  setUsePhone = bool => {
+    this.setState({
+      usePhone: bool
+    });
+  };
+
+  setGatherFriends = bool => {
+    this.setState({
+      gatherFriends: bool
+    });
+  };
+
+  setEat = bool => {
+    this.setState({
+      eat: bool
+    });
+  };
+
+  setWashHands = bool => {
     this.setState({
       washHands: bool
+    });
+  };
+
+  setExercise = bool => {
+    this.setState({
+      exercise: bool
     });
   };
 
   setFeedTreat = bool => {
     this.setState({
       feedTreat: bool
+    });
+  };
+
+  setChat = bool => {
+    this.setState({
+      chat: bool
+    });
+  };
+
+  setRow = bool => {
+    this.setState({
+      row: bool
+    });
+  };
+
+  setFetch = bool => {
+    this.setState({
+      fetch: bool
     });
   };
 
@@ -202,11 +265,6 @@ export class PersonProvider extends Component {
       }
     });
   };
-  turnTV = bool => {
-    this.setState({
-      TV: bool
-    });
-  };
 
   incrementDay = () => {
     let newday = this.state.day;
@@ -227,23 +285,32 @@ export class PersonProvider extends Component {
     });
   };
 
-  incrementActivity = () => {
+  updateScore = rate => {
     let newCount = this.state.dailyActivities;
     newCount -= 1;
     this.setState({
       dailyActivities: newCount
     });
+
+    this.setState({ increaseRate: rate });
   };
 
   clearActivites = () => {
     this.setState({
       dailyActivities: 2
     });
-  };
 
-  updateActivityTracker = obj => {
     this.setState({
-      activityTracker: { ...this.state.activityTracker, ...obj }
+      playVideogame: false,
+      usePhone: false,
+      gatherFriends: false,
+      eat: false,
+      washHands: false,
+      exercise: false,
+      feedTreat: false,
+      chat: false,
+      row: false,
+      fetch: false
     });
   };
 
@@ -335,25 +402,30 @@ export class PersonProvider extends Component {
       name: this.state.name,
       character: this.state.character,
       dailyActivities: this.state.dailyActivities,
-      activityTracker: this.state.activityTracker,
       location: this.state.location,
       day: this.state.day,
       curveball: this.state.curveball,
       renderCurve: this.state.renderCurve,
-      feedTreat: this.state.feedTreat,
+      playVideogame: this.state.playVideogame,
+      usePhone: this.state.usePhone,
+      gatherFriends: this.state.gatherFriends,
+      eat: this.state.eat,
       washHands: this.state.washHands,
+      exercise: this.state.exercise,
+      feedTreat: this.state.feedTreat,
+      chat: this.state.chat,
+      row: this.state.row,
+      fetch: this.state.fetch,
       buyOnce: this.state.buyOnce,
       renderPhone: this.state.renderPhone,
-      TV: this.state.TV,
       renderFeedback: this.state.renderFeedback,
       increaseRate: this.state.increaseRate,
-      setIncrease: this.setIncrease,
       updateFeedback: this.updateFeedback,
       updatePhone: this.updatePhone,
       updateBuy: this.updateBuy,
       updateCurve: this.updateCurve,
       updateRenderCurve: this.updateRenderCurve,
-      incrementActivity: this.incrementActivity,
+      updateScore: this.updateScore,
       setName: this.setName,
       setCharacter: this.setCharacter,
       setPersonInfo: this.setPersonInfo,
@@ -367,11 +439,17 @@ export class PersonProvider extends Component {
       addToBoredom: this.addToBoredom,
       updateLocation: this.updateLocation,
       resetDay: this.resetDay,
-      setWash: this.setWash,
+      setPlayVideogame: this.setPlayVideogame,
+      setUsePhone: this.setUsePhone,
+      setGatherFriends: this.setGatherFriends,
+      setEat: this.setEat,
+      setWashHands: this.setWashHands,
+      setExercise: this.setExercise,
       setFeedTreat: this.setFeedTreat,
+      setChat: this.setChat,
+      setRow: this.setRow,
+      setFetch: this.setFetch,
       clearActivites: this.clearActivites,
-      updateActivityTracker: this.updateActivityTracker,
-      turnTV: this.turnTV,
       checkIfGameOver: this.checkIfGameOver
     };
 

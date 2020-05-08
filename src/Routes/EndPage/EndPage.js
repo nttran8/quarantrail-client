@@ -19,6 +19,7 @@ export default class EndPage extends Component {
     this.props.renderRestart();
     return <Redirect to="/" />;
   };
+
   render() {
     let day;
     if (this.context.day === 1) {

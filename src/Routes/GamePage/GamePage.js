@@ -23,6 +23,7 @@ export default class GamePage extends Component {
       active: false
     };
   }
+
   componentDidMount() {
     if (this.context.day === 0) {
       gameService

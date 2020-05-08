@@ -13,7 +13,7 @@ export default class StartPage extends Component {
   handleStartGame = event => {
     event.preventDefault();
     if (!this.context.character) {
-      alert("Please select a player");
+      alert("Select your player");
     } else {
       this.props.context.renderGame();
     }

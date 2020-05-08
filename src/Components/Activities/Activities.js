@@ -8,124 +8,104 @@ export default class Activities extends Component {
 
   state = {
     disabled: false,
-    viewActivities: false,
-    previousAct: "",
-    previousCount: 0
+    viewActivities: false
   };
 
   componentDidMount = () => {
-    if (this.context.dailyActivities === -1) {
+    // Allow player to end the day after 3 unique activities
+    if (this.context.dailyActivities < 0) {
       this.renderSleep();
     }
   };
 
-  handleClickViewActivities = () => {
+  toggleActivities = () => {
+    // Show and hide activities
     this.setState({ viewActivities: !this.state.viewActivities });
   };
 
-  doActivityStuff = (name, health, boredom) => {
-    let newBoredom = boredom;
-    if (this.state.previousAct === name) {
-      this.setState({
-        previousCount: this.state.previousCount + 1
-      });
-      if (this.state.previousCount === 0) {
-        newBoredom *= 0.8;
-        this.context.setIncrease({ infection: health, boredom: boredom * 0.8 });
-      }
-
-      if (this.state.previousCount === 1) {
-        newBoredom *= 0.6;
-        this.context.setIncrease({ infection: health, boredom: boredom * 0.6 });
-      }
-    } else {
-      this.setState({
-        previousAct: name,
-        previousCount: 0
-      });
-      this.context.setIncrease({ infection: health, boredom: boredom });
-    }
-    let newData2 = {
+  updateScore = (health, boredom) => {
+    // Adjust health and boredom scores
+    let updatedUserScore = {
       id: this.context.starter.id,
       health: this.context.starter.health + health,
-      boredom: this.context.starter.boredom + newBoredom,
+      boredom: this.context.starter.boredom + boredom,
       toiletpaper: this.context.starter.toiletpaper,
       food: this.context.starter.food
     };
-    this.context.setPersonInfo(newData2);
-    this.context.incrementActivity();
+
+    this.context.updateScore({ infection: health, boredom });
+    this.context.setPersonInfo(updatedUserScore);
+
     if (this.context.dailyActivities === 0) {
       this.renderSleep();
     }
   };
 
-  handleWashHands = () => {
-    this.context.updateActivityTracker({ washHands: 1 });
-    this.context.setWash(true);
-    this.props.history.push("/washHands");
-  };
-
-  handleTakeout = () => {
-    this.doActivityStuff("takeout", 10, -10);
-    this.context.updateFeedback(true);
-  };
-
-  handleVideoGame = () => {
-    this.doActivityStuff("videogame", 0, -10);
-    this.context.turnTV(true);
-    this.props.history.push("/playVideogame");
-    this.context.updateFeedback(true);
-  };
-
-  handlePhone = () => {
-    this.doActivityStuff("phone", 0, -10);
-    this.context.updatePhone(true);
-  };
-
-  handleFriends = () => {
-    this.doActivityStuff("friends", 10, -20);
-    this.context.updateFeedback(true);
-  };
-
-  renderSleep = () => {
-    this.setState({ disabled: true });
-  };
-
   handleNextDay = () => {
-    this.setState({
-      disabled: false,
-      previousAct: "",
-      previousCount: 0
-    });
+    // Reset activity limits and increment day
     if (this.context.curveball === false) {
       this.context.updateRenderCurve(true);
     }
     this.context.incrementDay();
     this.context.updateCurve(false);
-    let newData = {
+
+    let updatedBoredom = {
       id: this.context.starter.id,
       health: this.context.starter.health,
       boredom: this.context.starter.boredom + 20,
       toiletpaper: this.context.starter.toiletpaper - 0.5,
       food: this.context.starter.food - 1
     };
+
     this.context.updateBuy(false);
-    this.context.setPersonInfo(newData);
-    this.context.setWash(false);
-    this.context.setFeedTreat(false);
-    this.context.turnTV(false);
+    this.context.setPersonInfo(updatedBoredom);
     this.context.updateFeedback(false);
     this.context.clearActivites();
+
+    this.setState({
+      disabled: false
+    });
+  };
+
+  handlePlayGame = () => {
+    this.updateScore(0, -10);
+    this.props.history.push("/playVideogame");
+    this.context.updateFeedback(true);
+    this.context.setPlayVideogame(true);
+  };
+
+  handleUsePhone = () => {
+    this.context.setUsePhone(true);
+    this.updateScore(0, -10);
+    this.context.updatePhone(true);
+  };
+
+  handleGatherWithFriends = () => {
+    this.context.setGatherFriends(true);
+    this.updateScore(10, -20);
+    this.context.updateFeedback(true);
+  };
+
+  handleEat = () => {
+    this.context.setEat(true);
+    this.updateScore(10, -10);
+    this.context.updateFeedback(true);
+  };
+
+  handleWashHands = () => {
+    this.context.setWashHands(true);
+    this.props.history.push("/washHands");
+  };
+
+  renderSleep = () => {
+    this.setState({ disabled: true });
   };
 
   render() {
     const { disabled, viewActivities } = this.state;
     return (
       <div className="activityBar">
-        <button
-          className="interactiveButton"
-          onClick={this.handleClickViewActivities}
-        >
+        <button className="interactiveButton" onClick={this.toggleActivities}>
           <FontAwesomeIcon icon="icons" />
         </button>
         {viewActivities && (
@@ -135,29 +115,29 @@ export default class Activities extends Component {
             </p>
             <button
               className="mybutton"
-              disabled={this.context.TV || disabled}
-              onClick={this.handleVideoGame}
+              disabled={this.context.playVideogame || disabled}
+              onClick={this.handlePlayGame}
             >
               <FontAwesomeIcon icon="gamepad" />
             </button>
             <button
               className="mybutton"
-              disabled={disabled}
-              onClick={this.handlePhone}
+              disabled={this.context.usePhone || disabled}
+              onClick={this.handleUsePhone}
             >
               <FontAwesomeIcon icon="mobile-alt" />
             </button>
             <button
               className="mybutton"
-              disabled={disabled}
-              onClick={this.handleFriends}
+              disabled={this.context.gatherFriends || disabled}
+              onClick={this.handleGatherWithFriends}
             >
               <FontAwesomeIcon icon="users" />
             </button>
             <button
               className="mybutton"
-              disabled={disabled}
-              onClick={this.handleTakeout}
+              disabled={this.context.eat || disabled}
+              onClick={this.handleEat}
             >
               <FontAwesomeIcon icon="utensils" />
             </button>
