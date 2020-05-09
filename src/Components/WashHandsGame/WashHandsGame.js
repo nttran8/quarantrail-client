@@ -16,6 +16,7 @@ export default class BestGameEver extends Component {
   };
 
   move = () => {
+    // Scrub hands images
     var elem = document.getElementById("myBar");
     var width = 1;
     var id = setInterval(frame, 200);
@@ -31,11 +32,13 @@ export default class BestGameEver extends Component {
   };
 
   ready = () => {
+    // Start washing hands
     this.setState({ ready: true });
     this.move();
   };
 
   updateHealth = () => {
+    // Update score
     const { count } = this.state;
     let score = -1;
     if (count >= 90) {
@@ -53,6 +56,7 @@ export default class BestGameEver extends Component {
   };
 
   doneScreen = () => {
+    // Show feedback and score
     let disabled;
 
     if (this.context.renderCurve) {

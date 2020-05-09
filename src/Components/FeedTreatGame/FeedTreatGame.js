@@ -20,7 +20,7 @@ const getRandomPosition = () => {
 const initialState = {
   timer: 20,
   direction: "right",
-  done: false,
+  gameover: false,
   instruction: true,
   count: 0,
   treat: getRandomPosition(),
@@ -33,7 +33,7 @@ export default class FeedTreatGame extends Component {
   state = initialState;
 
   componentDidMount() {
-    // Update direction and movement of cat
+    // Listens when arrow keys are pressed
     document.onkeydown = this.onKeyDown;
   }
 
@@ -54,7 +54,7 @@ export default class FeedTreatGame extends Component {
     if (this.state.instruction === true) {
       intervalId = setInterval(() => {
         if (this.state.timer === 0) {
-          this.setState({ done: true });
+          this.setState({ gameover: true });
         } else {
           this.setState({ timer: this.state.timer - 1 });
         }
@@ -120,7 +120,7 @@ export default class FeedTreatGame extends Component {
         this.setState({
           treat: getRandomPosition(),
           count: count + 1,
-          done: true
+          gameover: true
         });
       } else {
         this.setState({
@@ -131,7 +131,7 @@ export default class FeedTreatGame extends Component {
     }
   };
 
-  renderFinished = () => {
+  renderGameover = () => {
     // Show game over screen and feedback
     let message = "";
     if (intervalId) {
@@ -179,7 +179,7 @@ export default class FeedTreatGame extends Component {
           {this.state.catLength.map((length, i) => {
             const style = { left: `${length[0]}%`, top: `${length[1]}%` };
             let features;
-            if (this.state.done || this.state.instruction) {
+            if (this.state.gameover || this.state.instruction) {
               features = "hide";
             } else {
               features = `catSize ${this.state.direction}`;
@@ -195,12 +195,12 @@ export default class FeedTreatGame extends Component {
             );
           })}
           <CatTreat
-            finished={this.state.done}
+            finished={this.state.gameover}
             instruction={this.state.instruction}
             position={this.state.treat}
           />
         </div>
-        {this.state.done && this.renderFinished()}
+        {this.state.gameover && this.renderGameover()}
         {this.state.instruction && this.renderInstruction()}
         <Music song={Song} />
       </section>
