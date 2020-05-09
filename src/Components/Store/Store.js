@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PersonContext from "../../Context/PersonContext";
+import TraderLogo from "../../Images/traderLogo.svg";
 import "./Store.css";
 
 export default class Store extends Component {
@@ -50,25 +51,34 @@ export default class Store extends Component {
     const { food, toiletpaper } = this.state;
     return (
       <div className="store">
+        <img src={TraderLogo} alt="trader jone's" />
         <p>
-          Welcome to Trader Jone's! We are a bit bare right now but we'll get
-          through this together.
+          Welcome! We are a bit bare right now but we'll get through this
+          together.
         </p>
         <div className="store-food">
           <p>Food</p>
           {food}
-          <button onClick={this.handleAddFood}>+</button>
-          <button onClick={this.handleSubFood}>-</button>
+          <button className="storeButton" onClick={this.handleAddFood}>
+            +
+          </button>
+          <button className="storeButton" onClick={this.handleSubFood}>
+            -
+          </button>
         </div>
         <div className="store-toilet-paper">
           <p>Toilet Paper</p>
           {toiletpaper}
-          <button onClick={this.handleAddTp}>+</button>
-          <button onClick={this.handleSubTp}>-</button>
+          <button className="storeButton" onClick={this.handleAddTp}>
+            +
+          </button>
+          <button className="storeButton" onClick={this.handleSubTp}>
+            -
+          </button>
         </div>
         <button
           disabled={this.context.buyOnce}
-          className="checkout-button"
+          className="checkoutButton"
           onClick={this.handleCheckout}
         >
           Buy

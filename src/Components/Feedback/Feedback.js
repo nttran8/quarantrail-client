@@ -32,11 +32,9 @@ export default class Feedback extends Component {
 
   render() {
     return (
-      <section className="popupScreen">
-        <button className="feedbackButt" onClick={this.close}>
-          X
-        </button>
+      <section className="popupScreen" onClick={this.close}>
         <p className="feedbackText">{this.showUpdatedHealth()}</p>
+        <p>Click to close</p>
       </section>
     );
   }

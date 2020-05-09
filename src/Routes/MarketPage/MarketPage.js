@@ -77,10 +77,8 @@ export default class MarketPage extends Component {
             <FontAwesomeIcon icon="shopping-cart" />
           </button>
         </div>
-        <div className="store-section">
-          {shopping && <Store shopping={this.handleShop} />}
-          {this.context.buyOnce && this.renderThankYou()}
-        </div>
+        {shopping && <Store shopping={this.handleShop} />}
+        {this.context.buyOnce && this.renderThankYou()}
         <Music song={Song} />
       </section>
     );
