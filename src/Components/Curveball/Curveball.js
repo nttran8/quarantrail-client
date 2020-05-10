@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PersonContext from "../../Context/PersonContext";
-import gameService from "../../services/gameService";
+import gameService from "../../services/game-service";
 import "./Curveball.css";
 
 export default class Curveball extends Component {

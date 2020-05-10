@@ -5,6 +5,7 @@ import LeaderboardService from "../../services/leaderboard-service";
 import Music from "../../Components/Music/Music";
 import Song from "../../Sound/seeyouagain.mp3";
 import "./EndPage.css";
+
 export default class EndPage extends Component {
   static contextType = PersonContext;
 
@@ -25,6 +26,7 @@ export default class EndPage extends Component {
     if (this.context.day === 1) {
       day = "day";
     } else day = "days";
+
     return (
       <section className="EndPage-section">
         <div className="display-container">

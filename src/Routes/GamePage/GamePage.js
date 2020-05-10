@@ -7,12 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./GamePage.css";
 import StatusBar from "../../Components/StatusBar/StatusBar";
 import Day from "../../Components/Day/Day";
-import gameService from "../../services/gameService";
+import gameService from "../../services/game-service";
 import Curveball from "../../Components/Curveball/Curveball";
 import Character from "../../Components/Character/Character";
 import Song from "../../Sound/8bitsurf.mp3";
 import Pet from "../../Components/Pet/Pet";
-import Phone from "../../Components/Phone/Phone";
 import Feedback from "../../Components/Feedback/Feedback";
 
 export default class GamePage extends Component {
@@ -68,7 +67,6 @@ export default class GamePage extends Component {
           <StatusBar />
           <Day />
         </div>
-        {this.context.renderPhone && <Phone />}
         <Character selectCharacter={false} />
         <Pet />
         <Stock />

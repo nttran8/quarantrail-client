@@ -22,11 +22,9 @@ const PersonContext = React.createContext({
   row: false,
   fetch: false,
   buyOnce: false,
-  renderPhone: false,
   renderFeedback: false,
   increaseRate: {},
   updateFeedback: () => {},
-  updatePhone: () => {},
   updateBuy: () => {},
   updateCurve: () => {},
   updateRenderCurve: () => {},
@@ -82,17 +80,12 @@ export class PersonProvider extends Component {
     row: false,
     fetch: false,
     buyOnce: false,
-    renderPhone: false,
     renderFeedback: false,
     increaseRate: {}
   };
 
   updateFeedback = bool => {
     this.setState({ renderFeedback: bool });
-  };
-
-  updatePhone = bool => {
-    this.setState({ renderPhone: bool });
   };
 
   updateBuy = bool => {
@@ -430,11 +423,9 @@ export class PersonProvider extends Component {
       row: this.state.row,
       fetch: this.state.fetch,
       buyOnce: this.state.buyOnce,
-      renderPhone: this.state.renderPhone,
       renderFeedback: this.state.renderFeedback,
       increaseRate: this.state.increaseRate,
       updateFeedback: this.updateFeedback,
-      updatePhone: this.updatePhone,
       updateBuy: this.updateBuy,
       updateCurve: this.updateCurve,
       updateRenderCurve: this.updateRenderCurve,

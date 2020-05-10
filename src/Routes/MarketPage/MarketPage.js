@@ -33,7 +33,7 @@ export default class MarketPage extends Component {
   renderThankYou = () => {
     if (!this.context.renderCurve) {
       return (
-        <div className="popupScreen">
+        <div className="popupScreen marketTY">
           <h1>Thanks for visiting</h1>
           <p>
             Please come back tomorrow as we limit each customer from shopping

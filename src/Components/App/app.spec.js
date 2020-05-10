@@ -35,11 +35,10 @@ describe(`App Route`, () => {
       row: false,
       fetch: false,
       buyOnce: false,
-      renderPhone: false,
       renderFeedback: false,
       increaseRate: {},
       updateFeedback: () => {},
-      updatePhone: () => {},
+
       updateBuy: () => {},
       updateCurve: () => {},
       updateRenderCurve: () => {},

@@ -69,7 +69,7 @@ export default class Activities extends Component {
   handleUsePhone = () => {
     this.context.setUsePhone(true);
     this.updateScore(0, -10);
-    this.context.updatePhone(true);
+    this.context.updateFeedback(true);
   };
 
   handleGatherWithFriends = () => {
