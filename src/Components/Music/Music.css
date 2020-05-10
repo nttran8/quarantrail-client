@@ -11,3 +11,10 @@
 .music button:hover {
   background-color: transparent;
 }
+
+@media screen and (min-width: 720px) {
+  .music button {
+    height: 35px;
+    font-size: 22px;
+  }
+}

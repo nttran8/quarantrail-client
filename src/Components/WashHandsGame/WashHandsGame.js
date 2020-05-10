@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import WashGame from "./Hands";
 import PersonContext from "../../Context/PersonContext";
 import Music from "../Music/Music";
-import Song from "../../Sound/washHands.mp3";
+import Song from "../../Sound/game.mp3";
 import "./WashHandsGame.css";
 
 export default class BestGameEver extends Component {

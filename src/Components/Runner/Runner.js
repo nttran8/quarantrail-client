@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PersonContext from "../../Context/PersonContext";
 import Music from "../../Components/Music/Music";
-import Song from "../../Sound/feelinghappy.mp3";
+import Song from "../../Sound/game.mp3";
 import Cat from "./Cat";
 import Arrows from "../../Images/gameArrow.svg";
 import Enemy from "./Enemy";

@@ -7,7 +7,7 @@ import Music from "../../Components/Music/Music";
 import Store from "../../Components/Store/Store";
 import Character from "../../Components/Character/Character";
 import Curveball from "../../Components/Curveball/Curveball";
-import Song from "../../Sound/feelsgood.mp3";
+import Song from "../../Sound/morningmagic.mp3";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./MarketPage.css";
 

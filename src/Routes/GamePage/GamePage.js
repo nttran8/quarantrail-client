@@ -10,7 +10,7 @@ import Day from "../../Components/Day/Day";
 import gameService from "../../services/game-service";
 import Curveball from "../../Components/Curveball/Curveball";
 import Character from "../../Components/Character/Character";
-import Song from "../../Sound/8bitsurf.mp3";
+import Song from "../../Sound/morningmagic.mp3";
 import Pet from "../../Components/Pet/Pet";
 import Feedback from "../../Components/Feedback/Feedback";
 

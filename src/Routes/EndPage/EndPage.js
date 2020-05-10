@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import PersonContext from "../../Context/PersonContext";
 import LeaderboardService from "../../services/leaderboard-service";
 import Music from "../../Components/Music/Music";
-import Song from "../../Sound/seeyouagain.mp3";
+import Song from "../../Sound/morningmagic.mp3";
 import "./EndPage.css";
 
 export default class EndPage extends Component {

@@ -4,7 +4,7 @@ import CatTreat from "./CatTreat";
 import Treat from "../../Images/treat.svg";
 import Arrows from "../../Images/gameArrow.svg";
 import Music from "../../Components/Music/Music";
-import Song from "../../Sound/morningmagic.mp3";
+import Song from "../../Sound/game.mp3";
 import Rocky from "../../Images/gameCat.svg";
 import "./FeedTreatGame.css";
 
