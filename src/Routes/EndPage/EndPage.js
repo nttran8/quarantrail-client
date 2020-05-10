@@ -40,7 +40,6 @@ export default class EndPage extends Component {
                 Play again
               </button>
             </Link>
-            <Music song={Song} />
           </div>
         </div>
         <Music song={Song} />
