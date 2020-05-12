@@ -4,9 +4,6 @@ import "./StartPage.css";
 import Music from "../../Components/Music/Music";
 import Character from "../../Components/Character/Character";
 import Song from "../../Sound/morningmagic.mp3";
-import keyboard from "../../Sound/keyboard.mp3";
-import UIfx from "uifx";
-const beep = new UIfx({ asset: keyboard });
 
 export default class StartPage extends Component {
   static contextType = PersonContext;
@@ -21,7 +18,6 @@ export default class StartPage extends Component {
   };
 
   updateName = event => {
-    beep.play();
     this.context.setName(event.currentTarget.value);
   };
 

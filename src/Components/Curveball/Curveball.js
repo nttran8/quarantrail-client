@@ -14,7 +14,7 @@ export default class Curveball extends Component {
   componentDidMount() {
     // Get curveball that's appropriate for the setting
     gameService
-      .getCurveBall(this.context.location)
+      .getCurveball(this.context.location)
       .then(info => {
         this.setState({
           curveball: info

@@ -20,7 +20,7 @@ export default class GamePage extends Component {
   componentDidMount() {
     if (Object.entries(this.context.starter).length === 0) {
       gameService
-        .getGameinfo()
+        .getGameInfo()
         .then(initialVal => {
           this.context.setPersonInfo(initialVal);
           this.context.clearActivites();
