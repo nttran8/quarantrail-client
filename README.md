@@ -26,8 +26,9 @@ In this playful and lighthearted game, the world was struck with an awful pandem
 
 ### Screenshots
 
-![image of start page](src/Images/ScreenStart.JPG)
-![image of game page](src/Images/ScreenGame.JPG)
+![image of landing page](src/Images/screen1.png)
+![image of market page](src/Images/screen2.png)
+![image of park page](src/Images/screen3.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
