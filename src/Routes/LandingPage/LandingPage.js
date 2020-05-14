@@ -8,7 +8,7 @@ export default class LandingPage extends Component {
 
   render() {
     return (
-      <div className="landingPage">
+      <div className="landingPage mainTransition">
         <img src={Logo} alt="quaran trail - stay home" />
         <div className="intro">
           <h1>The year was 2020...</h1>

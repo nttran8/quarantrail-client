@@ -29,7 +29,7 @@ export default class ParkPage extends Component {
     }
 
     return (
-      <section className="parkpage gameSetting">
+      <section className="parkpage gameSetting mainTransition">
         {this.context.checkIfGameOver()}
         <div className="top">
           <StatusBar />

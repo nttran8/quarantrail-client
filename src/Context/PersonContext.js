@@ -339,8 +339,8 @@ export class PersonProvider extends Component {
   };
 
   checkIfGameOver = () => {
-    const percent = Math.floor(Math.random() * 100) + 1;
-    if (this.state.day > 5 && percent < this.state.starter.health) {
+    const percent = this.state.day * Math.floor(Math.random() * 15);
+    if (this.state.day > 5 && percent + this.state.starter.health >= 100) {
       return (
         <Redirect
           to={{

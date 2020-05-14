@@ -8,7 +8,7 @@ export default class HomePage extends Component {
   static contextType = BooleanContext;
   render() {
     return (
-      <div className="homePage">
+      <div className="homePage mainTransition">
         {this.context.start && <LandingPage />}
         {this.context.userPage && <StartPage context={this.context} />}
         {this.context.game && <GamePage {...this.props} />}

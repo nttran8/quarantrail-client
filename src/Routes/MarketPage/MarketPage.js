@@ -45,7 +45,6 @@ export default class MarketPage extends Component {
   };
 
   render() {
-    this.context.checkIfGameOver();
     let disabled;
     if (this.context.renderCurve) {
       disabled = true;
@@ -54,7 +53,8 @@ export default class MarketPage extends Component {
     }
     const { shopping } = this.state;
     return (
-      <section className="marketPage gameSetting">
+      <section className="marketPage gameSetting mainTransition">
+        {this.context.checkIfGameOver()}
         <div className="top">
           <StatusBar />
           <Day />

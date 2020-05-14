@@ -35,6 +35,17 @@
   border-radius: 3px;
 }
 
+.loading-fetch {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(245, 245, 245, 0.61);
+  transition: all 2s ease-in 1s;
+  -webkit-transition: all 2s ease-in 1s;
+  -moz-transition: all 2s ease-in 1s;
+  -o-transition: all 2s ease-in 1s;
+}
+
 @media screen and (min-width: 720px) {
   .gameSetting .top {
     height: 80px;

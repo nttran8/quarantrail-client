@@ -13,14 +13,22 @@ export default class Curveball extends Component {
 
   componentDidMount() {
     // Get curveball that's appropriate for the setting
+    this.mounted = true;
+
     gameService
       .getCurveball(this.context.location)
       .then(info => {
-        this.setState({
-          curveball: info
-        });
+        if (this.mounted === true) {
+          this.setState({
+            curveball: info
+          });
+        }
       })
       .catch(this.context.setError);
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   accept = () => {

@@ -28,7 +28,7 @@ export default class EndPage extends Component {
     } else day = "days";
 
     return (
-      <section className="EndPage-section">
+      <section className="EndPage-section mainTransition">
         <div className="display-container">
           <div className="display">
             <h1>{this.props.location.state.note}</h1>

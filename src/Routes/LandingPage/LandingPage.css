@@ -10,6 +10,13 @@
   height: 90vh;
 }
 
+.mainTransition {
+  transition: all 2s ease-in 1s;
+  -webkit-transition: all 2s ease-in 1s;
+  -moz-transition: all 2s ease-in 1s;
+  -o-transition: all 2s ease-in 1s;
+}
+
 .landingPage img {
   width: 180px;
   margin-bottom: 15px;

@@ -4,6 +4,7 @@ import Music from "../../Components/Music/Music";
 import Activities from "../../Components/Activities/Activities";
 import PersonContext from "../../Context/PersonContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Loader from "../../Components/Loader/Loader";
 import "./GamePage.css";
 import StatusBar from "../../Components/StatusBar/StatusBar";
 import Day from "../../Components/Day/Day";
@@ -16,6 +17,9 @@ import Feedback from "../../Components/Feedback/Feedback";
 
 export default class GamePage extends Component {
   static contextType = PersonContext;
+  state = {
+    loaded: false
+  };
 
   componentDidMount() {
     if (Object.entries(this.context.starter).length === 0) {
@@ -24,8 +28,11 @@ export default class GamePage extends Component {
         .then(initialVal => {
           this.context.setPersonInfo(initialVal);
           this.context.clearActivites();
+          this.setState({ loaded: true });
         })
         .catch(this.context.setError);
+    } else {
+      this.setState({ loaded: true });
     }
   }
 
@@ -54,7 +61,6 @@ export default class GamePage extends Component {
   };
 
   render() {
-    this.context.checkIfGameOver();
     let disabled;
     if (this.context.renderCurve) {
       disabled = true;
@@ -63,6 +69,7 @@ export default class GamePage extends Component {
     }
     return (
       <section className="gamePage gameSetting">
+        {this.context.checkIfGameOver()}
         <div className="top">
           <StatusBar />
           <Day />
@@ -89,6 +96,11 @@ export default class GamePage extends Component {
         </button>
         {this.context.renderCurve && <Curveball />}
         {this.context.renderFeedback && <Feedback />}
+        {!this.state.loaded && (
+          <div className="loading-fetch">
+            <Loader />
+          </div>
+        )}
         <Music song={Song} />
       </section>
     );

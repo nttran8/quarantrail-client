@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import LeaderboardService from "../../services/leaderboard-service";
 import Crown from "../../Images/crown.svg";
+import Loader from "../Loader/Loader";
 import "./LeaderBoard.css";
 
 export default class LeaderBoard extends Component {
@@ -75,10 +76,13 @@ export default class LeaderBoard extends Component {
       >
         <div className="leaderboard">
           <h2>Leaderboard</h2>
-          <div className="leaderboard-top-three">
-            {loaded && this.renderTop3()}
-          </div>
-          <ol className="leaderboard-list">{loaded && this.renderTop10()}</ol>
+          {!loaded && <Loader />}
+          {loaded && (
+            <>
+              <div className="leaderboard-top-three">{this.renderTop3()}</div>
+              <ol className="leaderboard-list">{this.renderTop10()}</ol>
+            </>
+          )}
         </div>
       </section>
     );

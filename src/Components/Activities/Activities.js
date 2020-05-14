@@ -8,13 +8,25 @@ export default class Activities extends Component {
 
   state = {
     disabled: false,
-    viewActivities: false
+    viewActivities: false,
+    disableSleep: true
   };
 
   componentDidMount = () => {
     // Allow player to end the day after 3 unique activities
     if (this.context.dailyActivities < 0) {
       this.renderSleep();
+    }
+  };
+
+  componentDidUpdate = () => {
+    // Move on to next day if curveball is answered
+    if (
+      !this.context.renderCurve &&
+      this.state.disabled &&
+      this.state.disableSleep
+    ) {
+      this.handleNextDay();
     }
   };
 
@@ -26,8 +38,6 @@ export default class Activities extends Component {
   updateScore = (health, boredom) => {
     // Adjust health and boredom scores
     this.context.updateScore({ health, boredom });
-    // this.context.setPersonInfo(updatedUserScore);
-
     if (this.context.dailyActivities === 0) {
       this.renderSleep();
     }
@@ -35,12 +45,7 @@ export default class Activities extends Component {
 
   handleNextDay = () => {
     // Reset activity limits and increment day
-    if (this.context.curveball === false) {
-      this.context.updateRenderCurve(true);
-    }
     this.context.incrementDay();
-    this.context.updateCurve(false);
-
     let updatedBoredom = {
       id: this.context.starter.id,
       health: this.context.starter.health,
@@ -48,14 +53,18 @@ export default class Activities extends Component {
       toiletpaper: this.context.starter.toiletpaper - 0.5,
       food: this.context.starter.food - 1
     };
-
     this.context.updateBuy(false);
     this.context.setPersonInfo(updatedBoredom);
-    this.context.updateFeedback(false);
     this.context.clearActivites();
+    this.setState({ disabled: false });
+  };
 
+  throwCurveball = () => {
+    // Render curveball and close feedback (if any)
+    this.context.updateRenderCurve(true);
+    this.context.updateFeedback(false);
     this.setState({
-      disabled: false
+      disableSleep: true
     });
   };
 
@@ -90,11 +99,11 @@ export default class Activities extends Component {
   };
 
   renderSleep = () => {
-    this.setState({ disabled: true });
+    this.setState({ disabled: true, disableSleep: false });
   };
 
   render() {
-    const { disabled, viewActivities } = this.state;
+    const { disabled, viewActivities, disableSleep } = this.state;
     return (
       <div className="activityBar">
         <button className="interactiveButton" onClick={this.toggleActivities}>
@@ -142,8 +151,8 @@ export default class Activities extends Component {
             </button>
             <button
               className="mybutton"
-              disabled={!disabled}
-              onClick={this.handleNextDay}
+              disabled={disableSleep}
+              onClick={this.throwCurveball}
             >
               <FontAwesomeIcon icon="bed" />
             </button>

@@ -8,12 +8,8 @@ const BooleanContext = React.createContext({
   userPage: false,
   game: false,
   endgame: false,
-  curveball: false,
-  renderCurve: false,
   mute: false,
   updateMute: () => {},
-  updateCurve: () => {},
-  updateRenderCurve: () => {},
   renderGame: () => {},
   renderEndGame: () => {},
   renderRestart: () => {},
@@ -35,25 +31,11 @@ export class BooleanProvider extends Component {
     userPage: false,
     game: false,
     endgame: false,
-    curveball: false,
-    renderCurve: false,
     mute: false
   };
 
   updateMute = () => {
     this.setState({ mute: !this.state.mute });
-  };
-
-  updateCurve = bool => {
-    this.setState({
-      curveball: bool
-    });
-  };
-
-  updateRenderCurve = bool => {
-    this.setState({
-      renderCurve: bool
-    });
   };
 
   renderGame = () => {
@@ -62,6 +44,7 @@ export class BooleanProvider extends Component {
       game: true
     });
   };
+
   renderEndGame = () => {
     this.setState({
       game: false,
@@ -75,6 +58,7 @@ export class BooleanProvider extends Component {
       userPage: true
     });
   };
+
   renderRestart = () => {
     this.setState({
       start: true,
@@ -116,12 +100,8 @@ export class BooleanProvider extends Component {
       start: this.state.start,
       userPage: this.state.userPage,
       game: this.state.game,
-      curveball: this.state.curveball,
-      renderCurve: this.state.renderCurve,
       mute: this.state.mute,
       updateMute: this.updateMute,
-      updateCurve: this.updateCurve,
-      updateRenderCurve: this.updateRenderCurve,
       renderGame: this.renderGame,
       renderEndGame: this.renderEndGame,
       renderRestart: this.renderRestart,
